@@ -1,0 +1,255 @@
+/* #Site Styles
+================================================== */
+
+body {
+	background-color: #f0f0f0;
+	font-size:1em;
+  	line-height:1.4;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color:#434343;
+  font-weight:600;
+  font-family: 'Open Sans', sans-serif;
+}
+
+a {
+	text-decoration: none;
+}
+
+/* #Header Styles
+================================================== */
+
+#header {
+	height: 60px;
+	background-color: #7C7C7C;
+	font-family: 'Open Sans', sans-serif;
+    margin-top: 10px;
+}
+
+#logo {
+    color: white;
+    font-weight: 400;
+    line-height: 60px;
+    margin-left: 20px;
+    font-size: 25px;
+}
+
+#logo span {
+    font-weight: 800;
+}
+
+#logo a {
+    color: white;
+}
+
+#logo a:hover {
+    color: #1C1C1C;
+}
+
+#nav {
+  float:right;
+  padding-top:24px;
+  text-transform:uppercase;
+}
+
+#nav a {
+  color:#FFFFFF;
+  margin-left:10px;
+  text-decoration:none;
+}
+
+#nav a:hover {
+	color:#EBB649;
+}
+
+/* #Side Styles
+================================================== */
+
+#sidebar {
+    height: 400px;
+    background-color: #333;
+}
+
+#sidebar-buttons {
+    width: 100%;
+    height: 50px;
+    background-color: #555;
+}
+
+.sidebar-button {
+    width: 20%;
+    height: 100%;
+    background-color: red;
+    float:left ;
+}
+
+.sidebar-button:hover {
+    background-color: blue;
+}
+
+.sidebar-add-button {
+    width: 40%;
+    height: 100%;
+    background-color: #222;
+    float: left;
+    background-color: orange;
+}
+
+.sidebar-add-button:hover {
+    background-color: green;
+}
+
+#sidebar-search {
+    width: 100%;
+    height: 40px;
+    background-color: #444;
+    margin-bottom: 10px;
+    float: left;
+}
+
+#sidebar-search-form input {
+    width: 200px;
+    height: 20px;
+    padding: 10px 5px;
+    float: left;    
+    background-color: #444;
+    border: 0;
+    font-family: 'Open Sans', sans-serif;
+    color: #fff;
+}
+
+#sidebar-search-form input::-webkit-input-placeholder {
+    font-family: 'Open Sans', sans-serif;
+    color: #999;
+    font-weight: normal;
+}
+ 
+#sidebar-search-form input:-moz-placeholder {
+    font-family: 'Open Sans', sans-serif;
+    color: #999;
+    font-weight: normal;
+}
+ 
+#sidebar-search-form input:-ms-input-placeholder {
+    font-family: 'Open Sans', sans-serif;
+    color: #999;
+    font-weight: normal;
+}   
+
+#sidebar-search-form button {
+    overflow: visible;
+    position: relative;
+    float: left;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    height: 40px;
+    width: 70px;
+    color: #fff;
+    text-transform: uppercase;
+    background: #d83c3c;
+}
+
+#sidebar-search-form  button:hover{     
+    background: #e54040;
+}  
+
+#sidebar-list {
+
+}
+
+/* #Main Page Content Styles
+================================================== */
+
+#main-page-content {
+    height: 400px;
+    background-color: #333;
+}
+
+/* #Form Styles
+================================================== */
+
+form * {
+    outline: 0 none;
+}
+form .row {
+    margin-bottom: 0;
+}
+form .row div {
+    position: relative;
+}
+form .row .columns div {
+    margin-bottom: 20px;
+}
+
+textarea {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #FFFEFF;
+    border-color: #A7AAAD #C2C7CA #D3D4D5;
+    border-image: none;
+    border-radius: 2px;
+    border-right: 1px solid #C2C7CA;
+    border-style: solid;
+    border-width: 1px;
+    color: #3A444F;
+    font: 0.938em 'Open Sans',sans-serif;
+    height: 181px;
+    margin: 0 0 25px;
+    overflow: auto;
+    padding: 7px 24px 0 7px;
+    position: relative;
+    resize: none;
+    vertical-align: bottom;
+    width: 530px;
+    z-index: 0;
+}
+
+/*input {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #FFFEFF;
+    border-color: #A7AAAD #C2C7CA #D3D4D5;
+    border-image: none;
+    border-radius: 2px;
+    border-right: 1px solid #C2C7CA;
+    border-style: solid;
+    border-width: 1px;
+    color: #3A444F;
+    font: 0.938em 'Open Sans',sans-serif;
+    height: 30px;
+    margin: 0;
+    padding: 0 24px 0 7px !important;
+    position: relative;
+    width: 240px !important;
+    z-index: 0;
+}*/
+
+/* #Media Queries
+================================================== */
+
+	/* Smaller than standard 960 (devices and browsers) */
+	@media only screen and (max-width: 959px) {}
+
+	/* Tablet Portrait size to standard 960 (devices and browsers) */
+	@media only screen and (min-width: 768px) and (max-width: 959px) {
+  	
+	}
+
+	/* All Mobile Sizes (devices and browser) */
+	@media only screen and (max-width: 767px) {}
+
+	/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+	@media only screen and (min-width: 480px) and (max-width: 767px) {
+		
+	}
+
+	/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+	@media only screen and (max-width: 479px) {
+		
+	}
