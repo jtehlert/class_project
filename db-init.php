@@ -70,14 +70,3 @@ $query = 'CREATE TABLE IF NOT EXISTS ' . $_DB_CLIPPINGS_TABLE_ . '(
   PRIMARY KEY (ID)
   )';
 mysqli_query($sql, $query) or die("A MySQL error has occurred.<br />Error: (" . mysqli_errno($sql) . ") " . mysqli_error($sql));
-
-echo('
-  /$$$$$$  /$$      /$$  /$$$$$$   /$$$$$$<br />
- /$$__  $$| $$  /$ | $$ /$$__  $$ /$$__  $$<br />
-| $$  \__/| $$ /$$$| $$| $$  \ $$| $$  \__/<br />
-|  $$$$$$ | $$/$$ $$ $$| $$$$$$$$| $$ /$$$$<br />
- \____  $$| $$$$_  $$$$| $$__  $$| $$|_  $$<br />
- /$$  \ $$| $$$/ \  $$$| $$  | $$| $$  \ $$<br />
-|  $$$$$$/| $$/   \  $$| $$  | $$|  $$$$$$/<br />
- \______/ |__/     \__/|__/  |__/ \______/<br />
- ');
