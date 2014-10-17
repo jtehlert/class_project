@@ -1,5 +1,11 @@
 <?php
-
+session_start();
+if (!$_SESSION['current_user']) {
+  $host = $_SERVER['HTTP_HOST'];
+  $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+  $extra = 'login.php';
+  header("location: http://$host$uri/$extra");
+}
 $title = "Class Notebook";
 
 require 'assets/layout/header.php'
