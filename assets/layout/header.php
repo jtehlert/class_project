@@ -18,7 +18,10 @@
 
   	<link rel="stylesheet" href="http://<?php echo $_SERVER['HTTP_HOST'];?>/assets/css/skeleton.css">
   	<link rel="stylesheet" href="http://<?php echo $_SERVER['HTTP_HOST'];?>/assets/css/layout.css">
+  	<link rel="stylesheet" href="http://<?php echo $_SERVER['HTTP_HOST'];?>/assets/css/sweet-alert.css">
   	<link href='http://fonts.googleapis.com/css?family=Open+Sans:800,600,400' rel='stylesheet' type='text/css'>
+
+  	<script type="text/javascript" src="http://<?php echo $_SERVER['HTTP_HOST'];?>/assets/js/sweet-alert.min.js"></script>
 </head>
 <body>
 

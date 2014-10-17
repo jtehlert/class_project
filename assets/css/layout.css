@@ -218,6 +218,68 @@ a {
 #main-page-content {
     height: 500px;
     background-color: #333;
+    font-weight: 400;
+}
+
+#content-header {
+    height: 40px;
+    width: 100%;
+    background-color: #555;
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    line-height: 40px;
+    font-size: 14px;
+    text-align: center;
+}
+
+#info-button {
+    background-color: #555;
+    height: 100%;
+    width: 40px;
+    float: left;
+    color: white;
+}
+
+#info-button:hover {
+    background-color: #333;
+    cursor: pointer;
+}
+
+#content-header .title {
+    width: 390px;
+    padding-left: 10px;
+    height: 40px;
+    line-height: 40px;
+    float: left;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: left;
+}
+
+#share-button {
+    width: 100px;
+    height: 40px;
+    background-color: #555;
+    float: left;
+    color: white;
+}
+
+#share-button:hover {
+    background-color: #333;
+    cursor: pointer;
+}
+
+#comment-button {
+    width: 100px;
+    height: 40px;
+    background-color: #555;
+    float: left;
+    color: white;
+}
+
+#comment-button:hover {
+    background-color: #333;
+    cursor: pointer;
 }
 
 /* #Form Styles

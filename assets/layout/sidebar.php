@@ -28,7 +28,7 @@
 		</form>
 	</div>
 	<div id="sidebar-title">
-		My Notebooks
+		My Clippings
 	</div>
 	<div id="sidebar-list">
 		<?php
@@ -38,10 +38,10 @@
 		<a href="">
 			<div id="sidebar-list-cell">
 				<div class="title">
-					Notebook Name
+					Clipping Name
 				</div>
 				<div class="subtitle">
-					Notebook Subtitle
+					Clipping Subtitle
 				</div>
 			</div>
 		</a>
@@ -50,3 +50,11 @@
 		?>
 	</div>
 </div>
+
+<script>
+
+document.querySelector('#sidebar-search').onclick = function(){
+	swal("Feature not implemented", "We'll get that working right away!")
+};
+
+</script>
