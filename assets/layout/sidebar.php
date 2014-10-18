@@ -2,24 +2,22 @@
 	<div id="sidebar-buttons">
 		<a href="">
 			<div class="sidebar-button">
-				<!-- <img src="http://<?php echo $_SERVER['HTTP_HOST'];?>/assets/images/notebook.png" alt="" > -->
+				<!-- <img src="http://<?php //echo $_SERVER['HTTP_HOST'];?>/assets/images/notebook.png" alt="" > -->
 			</div>
 		</a>
 		<a href="">
 			<div class="sidebar-button">
-				<!-- <img src="http://<?php echo $_SERVER['HTTP_HOST'];?>/assets/images/note.png" alt=""> -->
+				<!-- <img src="http://<?php //echo $_SERVER['HTTP_HOST'];?>/assets/images/note.png" alt=""> -->
 			</div>
 		</a>
 		<a href="">
 			<div class="sidebar-button">
-				<!-- <img src="http://<?php echo $_SERVER['HTTP_HOST'];?>/assets/images/alerts.png" alt=""> -->
+				<!-- <img src="http://<?php //echo $_SERVER['HTTP_HOST'];?>/assets/images/alerts.png" alt=""> -->
 			</div>
 		</a>
-		<a href="">
-			<div class="sidebar-add-button">
-			
-			</div>
-		</a>
+		<div class="sidebar-add-button" onclick="showOverlay()">
+			Add
+		</div>
 	</div>
 	<div id="sidebar-search" >
 		<form id="sidebar-search-form" method="get" action="">

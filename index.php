@@ -20,6 +20,27 @@ require 'assets/layout/header.php'
 	<?php require 'assets/layout/main-page/content.php' ?>
 </div>
 
+<div id="overlay">
+	<div>
+		<a href="#" onclick="hideOverlay()">Close Modal</a>
+        <p>Content you want the user to see goes here.</p>
+    </div>
+</div>
+
+<script>
+
+function showOverlay() {
+	el = document.getElementById("overlay");
+	el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+}
+
+function hideOverlay() {
+	el = document.getElementById("overlay");
+	el.style.visibility = "hidden";
+}
+
+</script>
+
 <?php
 
 require 'assets/layout/footer.php'
