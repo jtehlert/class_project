@@ -37,8 +37,8 @@ function getClippingsByUserId($userId) {
   $query = "SELECT * FROM CLIPPINGS WHERE UID=$userId";
   $result = mysqli_query($sql, $query) or die("A MySQL error has occurred.<br />Error: (" . mysqli_errno($sql) . ") " . mysqli_error($sql));
 
-  $files = array();
-  while ($obj = mysqli_fetch_object($result) or die("A MySQL error has occurred.<br />Error: (" . mysqli_errno($sql) . ") " . mysqli_error($sql))) {
+  $clippings = array();
+  while ($obj = mysqli_fetch_object($result)) {
     $clippings[] = $obj;
   }
   return $clippings;
