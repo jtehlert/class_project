@@ -21,6 +21,9 @@
   	<link rel="stylesheet" href="http://<?php echo $_SERVER['HTTP_HOST'];?>/assets/css/sweet-alert.css">
   	<link href='http://fonts.googleapis.com/css?family=Open+Sans:800,600,400' rel='stylesheet' type='text/css'>
 
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://<?php echo $_SERVER['HTTP_HOST'];?>/assets/js/load_clippings.js"></script>
   	<script type="text/javascript" src="http://<?php echo $_SERVER['HTTP_HOST'];?>/assets/js/sweet-alert.min.js"></script>
 </head>
 <body>
