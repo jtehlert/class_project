@@ -29,23 +29,7 @@
 		My Clippings
 	</div>
 	<div id="sidebar-list">
-		<?php
-			for($i = 0; $i < 10; $i++)
-			{
-		?>
-		<a href="">
-			<div id="sidebar-list-cell">
-				<div class="title">
-					Clipping Name
-				</div>
-				<div class="subtitle">
-					Clipping Subtitle
-				</div>
-			</div>
-		</a>
-		<?php
-			}
-		?>
+    <!-- load_clippings.js populates this div -->
 	</div>
 </div>
 
