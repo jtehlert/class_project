@@ -162,6 +162,7 @@ require 'helpers/javascript_variable_injection.php';
       }
 
       loadClippings();
+      locaion.reload();
     }
 
   })();
