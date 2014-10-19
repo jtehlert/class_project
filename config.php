@@ -1,5 +1,5 @@
 <?php
-require 'private_config.php';
+include 'private_config.php';
 $_PROD_ = FALSE;
 
 // DB Settings //
