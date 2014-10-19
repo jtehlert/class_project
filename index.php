@@ -19,25 +19,28 @@ require 'helpers/javascript_variable_injection.php';
 	<?php require 'assets/layout/main-page/content.php' ?>
 </div>
 
-<div id="overlay">
-	<div>
-		<a href="#" onclick="hideOverlay()">Close Modal</a>
-    <div id="overlay-content">
-      <form id="file-form" action="" enctype="multipart/form-data" method="POST">
-        <input type="file" id="file-select" name="file" accept="text/plain" required />
-        <button type="submit" id="upload-button">Upload</button>
-      </form>
-      <form id="clipping-form" action="" enctype="multipart/form-data" method="POST" style="display: none">
-        <input type="hidden" id="fid" value=""/>
-        <p>Clipping Name</p><br />
-        <input type="text" id="clipping-name" name="clipping-name" required /><br />
-        <p>Clipping Subtitle</p><br/>
-        <input type="text" id="clipping-subtitle" name="clipping-subtitle" required/><br />
-        <p>Highlight the text you would like to create a clipping from.</p><br />
-        <textarea id="uploaded-file-text" name="uploaded-file-text" onmouseup="copyText()" readonly></textarea><br />
-        <textarea id="clipping-text" name="clipping-text" ></textarea><br />
-        <button type="submit" id="save-clipping">Save Clipping</button>
-      </form>
+<div>
+  <div id="overlay-background"></div>
+  <div id="overlay">
+  	<div>
+  		<a href="#" onclick="hideOverlay()">Close Modal</a>
+      <div id="overlay-content">
+        <form id="file-form" action="" enctype="multipart/form-data" method="POST">
+          <input type="file" id="file-select" name="file" accept="text/plain" required />
+          <button type="submit" id="upload-button">Upload</button>
+        </form>
+        <form id="clipping-form" action="" enctype="multipart/form-data" method="POST" style="display: none">
+          <input type="hidden" id="fid" value=""/>
+          <p>Clipping Name</p><br />
+          <input type="text" id="clipping-name" name="clipping-name" required /><br />
+          <p>Clipping Subtitle</p><br/>
+          <input type="text" id="clipping-subtitle" name="clipping-subtitle" required/><br />
+          <p>Highlight the text you would like to create a clipping from.</p><br />
+          <textarea id="uploaded-file-text" name="uploaded-file-text" onmouseup="copyText()" readonly></textarea><br />
+          <textarea id="clipping-text" name="clipping-text" ></textarea><br />
+          <button type="submit" id="save-clipping">Save Clipping</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>
@@ -48,11 +51,17 @@ require 'helpers/javascript_variable_injection.php';
   function showOverlay() {
     el = document.getElementById("overlay");
     el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+
+    bg = document.getElementById("overlay-background");
+    bg.style.display = (bg.style.display == "block") ? "none" : "block";
   }
 
   function hideOverlay() {
     el = document.getElementById("overlay");
     el.style.visibility = "hidden";
+
+    bg = document.getElementById("overlay-background");
+    bg.style.display = "none";
   }
 
   function copyText() {
