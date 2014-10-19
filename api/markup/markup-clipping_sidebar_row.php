@@ -1,12 +1,11 @@
 <?php
-
-if (isset($_GET)) {
+if (isset($_GET['id']) && isset($_GET['name']) && isset($_GET['subtitle'])) {
   $id = 'clipping-' . $_GET['id'];
   $name = $_GET['name'];
   $subtitle = $_GET['subtitle'];
   $markup = '
-<a href="">
-  <div id="' . $id . '" class="sidebar-list-cell">
+<a id="' . $id . '" onclick="clickClipping(this.id)">
+  <div  class="sidebar-list-cell">
     <div class="title">
       ' . $name . '
     </div>
@@ -15,6 +14,5 @@ if (isset($_GET)) {
     </div>
   </div>
 </a>';
-
   print $markup;
 }

@@ -58,14 +58,14 @@ function getClippingsByUserId($userId) {
  * @return int
  *  The ID of the file that was created.
  */
-function saveClipping($name, $userId, $origFileId, $coordinates) {
+function saveClipping($userId, $file, $content, $name, $subtitle) {
   $time = time();
   require_once($_SERVER['DOCUMENT_ROOT'] . '/helpers/database_helper.php');
 
   $sql = sqlSetup();
-  $query = "INSERT INTO CLIPPINGS (NAME, UID, CREATED, ACCESSED, ORIGFILE, COORDINATES)
+  $query = "INSERT INTO CLIPPINGS (CREATED, ACCESSED, UID, ORIGFILE, CONTENT, NAME, SUBTITLE)
             VALUES
-            ($name, $userId, $time, $time, $origFileId, $coordinates)";
+            ($time, $time, $userId, $file, '$content', '$name', '$subtitle')";
   mysqli_query($sql, $query);
   $query = "SELECT LAST_INSERT_ID()";
   $result = mysqli_query($sql, $query) or die("A MySQL error has occurred.<br />Error: (" . mysqli_errno($sql) . ") " . mysqli_error($sql));
@@ -88,4 +88,14 @@ function accessClipping($id) {
             SET ACCESS=$time
             WHERE ID=$id";
   mysqli_query($sql, $query);
+}
+
+function getClippingContent($id) {
+  require_once($_SERVER['DOCUMENT_ROOT'] . '/helpers/database_helper.php');
+
+  $sql = sqlSetup();
+  $query = "SELECT CONTENT FROM CLIPPINGS WHERE ID=$id";
+  $result = mysqli_query($sql, $query) or die("A MySQL error has occurred.<br />Error: (" . mysqli_errno($sql) . ") " . mysqli_error($sql));
+  $content = mysqli_fetch_row($result)[0];
+  return $content;
 }

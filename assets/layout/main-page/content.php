@@ -3,7 +3,7 @@
 		<div id="info-button">
 			Info
 		</div>
-		<div class="title">
+		<div id="clipping-title">
 			Note Title
 		</div>
 		<div id="share-button">
@@ -13,6 +13,8 @@
 			Comment
 		</div>
 	</div>
+  <textarea id="clipping-content">
+  </textarea>
 </div>
 
 <script>

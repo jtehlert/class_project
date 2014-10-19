@@ -58,13 +58,13 @@ if (isset($_POST['sign_in'])) {
   if (empty($error)) {
     $host = $_SERVER['HTTP_HOST'];
     $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-    $extra = 'home';
+    $extra = 'index.php';
     header("location: http://$host$uri/$extra");
   } else {
     $_SESSION['login_error']['message'] = $error;
     $host = $_SERVER['HTTP_HOST'];
     $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-    $extra = '';
+    $extra = 'login.php';
     header("location: http://$host$uri/$extra");
   }
 }
@@ -100,13 +100,13 @@ elseif (isset($_POST['create'])) {
   if (empty($error)) {
     $host = $_SERVER['HTTP_HOST'];
     $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-    $extra = 'home';
+    $extra = 'index.php';
     header("location: http://$host$uri/$extra");
   } else {
     $_SESSION['login_error']['message'] = $error;
     $host = $_SERVER['HTTP_HOST'];
     $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-    $extra = '';
+    $extra = 'login.php';
     header("location: http://$host$uri/$extra");
   }
 }

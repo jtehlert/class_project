@@ -32,9 +32,9 @@ function getFileByName($name) {
   require_once($_SERVER['DOCUMENT_ROOT'] . '/helpers/database_helper.php');
 
   $sql = sqlSetup();
-  $query = "SELECT * FROM FILES WHERE NAME=$name";
+  $query = "SELECT * FROM FILES WHERE NAME='$name'";
   $result = mysqli_query($sql, $query) or die("A MySQL error has occurred.<br />Error: (" . mysqli_errno($sql) . ") " . mysqli_error($sql));
-  $obj = mysqli_fetch_object($result) or die("A MySQL error has occurred.<br />Error: (" . mysqli_errno($sql) . ") " . mysqli_error($sql));
+  $obj = mysqli_fetch_object($result);
   return $obj;
 }
 
@@ -83,11 +83,12 @@ function storeFile($name, $filetype, $userId) {
   $sql = sqlSetup();
   $query = "INSERT INTO FILES (NAME, UID, UPLOADED, ACCESSED, FILETYPE)
             VALUES
-            ($name, $userId, $time, $time, $filetype)";
-  mysqli_query($sql, $query);
+            ('$name', $userId, $time, $time, '$filetype')";
+  mysqli_query($sql, $query) or die("A MySQL error has occurred.<br />Error: (" . mysqli_errno($sql) . ") " . mysqli_error($sql));
   $query = "SELECT LAST_INSERT_ID()";
   $result = mysqli_query($sql, $query) or die("A MySQL error has occurred.<br />Error: (" . mysqli_errno($sql) . ") " . mysqli_error($sql));
-  $id = mysqli_fetch_row($result)[0];
+  $row = mysqli_fetch_row($result);
+  $id = $row[0];
   return $id;
 }
 
