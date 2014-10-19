@@ -4,7 +4,7 @@ if (isset($_GET['id']) && isset($_GET['name']) && isset($_GET['subtitle'])) {
   $name = $_GET['name'];
   $subtitle = $_GET['subtitle'];
   $markup = '
-<a id="' . $id . '" onclick="clickClipping(this.id)">
+<a id="' . $id . '" onclick="clickClipping(this.id)" class="sidebar-list-link">
   <div  class="sidebar-list-cell">
     <div class="title">
       ' . $name . '

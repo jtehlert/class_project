@@ -1,4 +1,6 @@
-$(document).ready(function() {
+$(document).ready(function() {loadClippings()});
+
+function loadClippings() {
     $.ajax({
         url: window.location.origin + '/api/rest/clipping.php?uid=' + uid
     }).done(function(response) {
@@ -11,4 +13,4 @@ $(document).ready(function() {
             });
         }
     });
-})
+}
