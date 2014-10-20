@@ -267,7 +267,7 @@ a {
 }
 
 #content-header #clipping-title {
-    width: 390px;
+    width: 290px;
     padding-left: 10px;
     height: 40px;
     line-height: 40px;
@@ -302,6 +302,20 @@ a {
     background-color: #333;
     cursor: pointer;
 }
+
+#organize-button {
+    width: 100px;
+    height: 40px;
+    background-color: #555;
+    float: left;
+    color: white;
+}
+
+#organize-button:hover {
+    background-color: #333;
+    cursor: pointer;
+}
+
 
 #clipping-content {
     width: 100%;

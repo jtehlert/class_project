@@ -99,6 +99,7 @@ require 'helpers/javascript_variable_injection.php';
       document.getElementById('info-button').innerHTML = 'Info';
       document.getElementById('share-button').innerHTML = 'Share';
       document.getElementById('comment-button').innerHTML = 'Comment';
+      document.getElementById('organize-button').innerHTML = 'Organize';
     }
   }
 
