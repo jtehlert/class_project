@@ -28,11 +28,13 @@ a {
 }
 
 #logo {
+    width: 400px;
     color: white;
     font-weight: 400;
     line-height: 60px;
     margin-left: 20px;
     font-size: 25px;
+    float: left;
 }
 
 #logo span {
@@ -45,6 +47,20 @@ a {
 
 #logo a:hover {
     color: #1C1C1C;
+}
+
+#logout {
+    float: right;
+    line-height: 60px;
+    margin-right: 10px;
+}
+
+#logout a {
+    color: white;
+}
+
+#logout a:hover {
+    color: #F9B84E;
 }
 
 #nav {

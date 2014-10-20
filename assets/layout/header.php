@@ -35,5 +35,8 @@
 			<div id="logo">
 				<a href=""><span>Class</span>Notebook</a>
 			</div>
+			<div id="logout">
+				<a href="logout.php">Logout</a>
+			</div>
 		</div>
 	</div>
