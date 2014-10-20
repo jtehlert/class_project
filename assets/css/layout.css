@@ -303,20 +303,19 @@ textarea {
      visibility: hidden;
      position: absolute;
      left: 0px;
-     top: 0px;
+     top: 80px;
      width:100%;
      height:100%;
      text-align:center;
      z-index: 2000;
+     font-family: 'Open Sans', sans-serif;
 }
 
-#overlay div {
-     width:600px;
-     margin: 100px auto;
-     background-color: #fff;
-     padding:15px;
-     text-align:center;
-     border-radius: 8px;
+#overlay-box {
+    background-color: #fff;
+    border: 1px solid #7a858d;
+    border-radius: 5px;
+    height: auto;
 }
 
 #overlay-background {
@@ -328,6 +327,76 @@ textarea {
     right: 0;
     top: 0;
     z-index: 1000;
+}
+
+#overlay-close-button {
+    width: 20px;
+    height: 20px;
+    color: #1C1C1C;
+    line-height: 20px;
+    text-align: center;
+    font-size: 16px;
+    float: right;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+#overlay-close-button:hover {
+    color: #F9B84E;
+    cursor: pointer;
+}
+
+#overlay h2 #overlay-title {
+    word-wrap: break-word;
+}
+
+div #overlay-content {
+    background: none repeat scroll 0 0 #f6f9fc;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top: 1px solid #e5e5e5;
+    font-size: 13px;
+    line-height: 1.8em;
+    padding: 32px;
+    word-wrap: break-word;
+}
+
+#overlay-box h2 {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    padding: 20px 32px;
+}
+
+#file-form input {
+    /*position: relative;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    height: 35px;
+    font-size: 16px;
+    font-weight: 400;
+    width: 100px;
+    color: #fff;
+    text-transform: uppercase;
+    background: #d83c3c;
+    margin-top: 20px;*/
+}
+
+#file-form button {
+    position: relative;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    height: 35px;
+    font-size: 16px;
+    font-weight: 400;
+    width: 120px;
+    color: #fff;
+    text-transform: uppercase;
+    background: #d83c3c;
+    margin-top: 20px;
 }
 
 /* #Form Styles

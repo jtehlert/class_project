@@ -22,12 +22,20 @@ require 'helpers/javascript_variable_injection.php';
 <div>
   <div id="overlay-background"></div>
   <div id="overlay">
-  	<div>
-  		<a href="#" onclick="hideOverlay()">Close Modal</a>
+  	<div id="overlay-box">
+      <div id="overlay-close-button" onclick="hideOverlay()">X</div>
+      <h2 id="overlay-title">Upload Your Document</h2>
       <div id="overlay-content">
         <form id="file-form" action="" enctype="multipart/form-data" method="POST">
-          <input type="file" id="file-select" name="file" accept="text/plain" required />
-          <button type="submit" id="upload-button">Upload</button>
+          <div class="row">
+            <input type="file" id="file-select" name="file" accept="text/plain" required />
+          </div>
+          <div class="row" style="margin-top: 20px;">
+            At this time you may only upload .txt files
+          </div>
+          <div class="row">
+            <button type="submit" id="upload-button">Upload</button>
+          </div>
         </form>
         <form id="clipping-form" action="" enctype="multipart/form-data" method="POST" style="display: none">
           <input type="hidden" id="fid" value=""/>
