@@ -93,6 +93,13 @@ require 'helpers/javascript_variable_injection.php';
     document.getElementById('clipping-content').value = contents.CONTENT;
 
     document.getElementById('clipping-title').innerHTML = contents.NAME;
+
+    if(contents.NAME.length > 0)
+    {
+      document.getElementById('info-button').innerHTML = 'Info';
+      document.getElementById('share-button').innerHTML = 'Share';
+      document.getElementById('comment-button').innerHTML = 'Comment';
+    }
   }
 
   (function() {
