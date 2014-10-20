@@ -6,7 +6,7 @@ if (!$_SESSION['current_user']) {
   header("location: http://$host/$extra");
 }
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api/file.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/wordpress/api/file.php');
 
 // Get the user's info.
 $uid = $_SESSION['current_user'];
@@ -29,7 +29,7 @@ while(getFileByName($name)) {
 $fid = storeFile($name, $type, $uid);
 
 // Move the temp file to our storage directory.
-$target_path = $_SERVER['DOCUMENT_ROOT'] . '/uploads/' . $name;
+$target_path = $_SERVER['DOCUMENT_ROOT'] . '/wordpress/uploads/' . $name;
 
 if(move_uploaded_file($tmp_name, $target_path)) {
   print json_encode(array(200 => 'success', 'fname' => $name, 'fid' => $fid));

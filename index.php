@@ -2,8 +2,9 @@
 session_start();
 if (!$_SESSION['current_user']) {
   $host = $_SERVER['HTTP_HOST'];
+  $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
   $extra = 'login.php';
-  header("location: http://$host/$extra");
+  header("location: http://$host$uri/$extra");
 }
 $title = "Class Notebook";
 
@@ -77,7 +78,7 @@ require 'helpers/javascript_variable_injection.php';
 
     // Get the clippings content from the API.
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', window.location.origin + "/api/rest/clipping.php?id=" + id, false);
+    xhr.open('GET', window.location.origin + "/wordpress/api/rest/clipping.php?id=" + id, false);
     xhr.send();
     var contents = JSON.parse(xhr.responseText);
 
@@ -117,7 +118,7 @@ require 'helpers/javascript_variable_injection.php';
       var xhr = new XMLHttpRequest();
 
       // Open the connection.
-      xhr.open('POST', window.location.origin + "/helpers/file_upload.php", false);
+      xhr.open('POST', window.location.origin + "/wordpress/helpers/file_upload.php", false);
 
       // Send the Data.
       xhr.send(formData);
@@ -133,7 +134,7 @@ require 'helpers/javascript_variable_injection.php';
       var xhr = new XMLHttpRequest();
 
       // Open the connection.
-      xhr.open('GET', window.location.origin + "/uploads/" + fname, false);
+      xhr.open('GET', window.location.origin + "/wordpress/uploads/" + fname, false);
 
       // Send the request.
       xhr.send();
@@ -160,7 +161,7 @@ require 'helpers/javascript_variable_injection.php';
       var xhr = new XMLHttpRequest();
 
       // Open the connection.
-      xhr.open('GET', window.location.origin + "/api/rest/clipping.php?userId=" + uid + "&file=" + file + "&content=" + content + "&name=" + name + "&subtitle=" + subtitle, false);
+      xhr.open('GET', window.location.origin + "/wordpress/api/rest/clipping.php?userId=" + uid + "&file=" + file + "&content=" + content + "&name=" + name + "&subtitle=" + subtitle, false);
       xhr.send();
       hideOverlay();
 
