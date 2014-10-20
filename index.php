@@ -2,8 +2,9 @@
 session_start();
 if (!$_SESSION['current_user']) {
   $host = $_SERVER['HTTP_HOST'];
+  $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
   $extra = 'login.php';
-  header("location: http://$host/$extra");
+  header("location: http://$host$uri/$extra");
 }
 $title = "Class Notebook";
 
@@ -22,12 +23,20 @@ require 'helpers/javascript_variable_injection.php';
 <div>
   <div id="overlay-background"></div>
   <div id="overlay">
-  	<div>
-  		<a href="#" onclick="hideOverlay()">Close Modal</a>
+  	<div id="overlay-box">
+      <div id="overlay-close-button" onclick="hideOverlay()">X</div>
+      <h2 id="overlay-title">Upload Your Document</h2>
       <div id="overlay-content">
         <form id="file-form" action="" enctype="multipart/form-data" method="POST">
-          <input type="file" id="file-select" name="file" accept="text/plain" required />
-          <button type="submit" id="upload-button">Upload</button>
+          <div class="row">
+            <input type="file" id="file-select" name="file" accept="text/plain" required />
+          </div>
+          <div class="row" style="margin-top: 20px;">
+            At this time you may only upload .txt files
+          </div>
+          <div class="row">
+            <button type="submit" id="upload-button">Upload</button>
+          </div>
         </form>
         <form id="clipping-form" action="" enctype="multipart/form-data" method="POST" style="display: none">
           <input type="hidden" id="fid" value=""/>
@@ -77,7 +86,7 @@ require 'helpers/javascript_variable_injection.php';
 
     // Get the clippings content from the API.
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', window.location.origin + "/api/rest/clipping.php?id=" + id, false);
+    xhr.open('GET', window.location.origin + "/wordpress/api/rest/clipping.php?id=" + id, false);
     xhr.send();
     var contents = JSON.parse(xhr.responseText);
 
@@ -85,6 +94,13 @@ require 'helpers/javascript_variable_injection.php';
     document.getElementById('clipping-content').value = contents.CONTENT;
 
     document.getElementById('clipping-title').innerHTML = contents.NAME;
+
+    if(contents.NAME.length > 0)
+    {
+      document.getElementById('info-button').innerHTML = 'Info';
+      document.getElementById('share-button').innerHTML = 'Share';
+      document.getElementById('comment-button').innerHTML = 'Comment';
+    }
   }
 
   (function() {
@@ -117,7 +133,7 @@ require 'helpers/javascript_variable_injection.php';
       var xhr = new XMLHttpRequest();
 
       // Open the connection.
-      xhr.open('POST', window.location.origin + "/helpers/file_upload.php", false);
+      xhr.open('POST', window.location.origin + "/wordpress/helpers/file_upload.php", false);
 
       // Send the Data.
       xhr.send(formData);
@@ -133,7 +149,7 @@ require 'helpers/javascript_variable_injection.php';
       var xhr = new XMLHttpRequest();
 
       // Open the connection.
-      xhr.open('GET', window.location.origin + "/uploads/" + fname, false);
+      xhr.open('GET', window.location.origin + "/wordpress/uploads/" + fname, false);
 
       // Send the request.
       xhr.send();
@@ -160,7 +176,7 @@ require 'helpers/javascript_variable_injection.php';
       var xhr = new XMLHttpRequest();
 
       // Open the connection.
-      xhr.open('GET', window.location.origin + "/api/rest/clipping.php?userId=" + uid + "&file=" + file + "&content=" + content + "&name=" + name + "&subtitle=" + subtitle, false);
+      xhr.open('GET', window.location.origin + "/wordpress/api/rest/clipping.php?userId=" + uid + "&file=" + file + "&content=" + content + "&name=" + name + "&subtitle=" + subtitle, false);
       xhr.send();
       hideOverlay();
 

@@ -1,20 +1,21 @@
 <div id="main-page-content">
 	<div id="content-header">
 		<div id="info-button">
-			Info
+			
 		</div>
 		<div id="clipping-title">
-			Note Title
+			
 		</div>
 		<div id="share-button">
-			Share
+			
 		</div>
 		<div id="comment-button">
-			Comment
+			
 		</div>
 	</div>
-  <textarea id="clipping-content">
-  </textarea>
+
+  	<textarea id="clipping-content">
+  	</textarea>
 </div>
 
 <script>
