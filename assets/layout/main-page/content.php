@@ -12,6 +12,9 @@
 		<div id="comment-button">
 			
 		</div>
+		<div id="organize-button">
+			
+		</div>
 	</div>
 
   	<textarea id="clipping-content">
@@ -29,6 +32,10 @@ document.querySelector('#share-button').onclick = function(){
 };
 
 document.querySelector('#comment-button').onclick = function(){
+	swal("Feature not implemented", "We'll get that working right away!")
+};
+
+document.querySelector('#organize-button').onclick = function(){
 	swal("Feature not implemented", "We'll get that working right away!")
 };
 
