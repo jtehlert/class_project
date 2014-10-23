@@ -1,6 +1,6 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/wordpress/api/clipping.php');
+require_once(dirname(__FILE__) . '/../clipping.php');
 
 if (isset($_GET['id']) && isset($_GET['content'])) {
   print(json_encode(getClippingContent($_GET['id'])));

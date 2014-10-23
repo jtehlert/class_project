@@ -10,7 +10,7 @@
  *  Returns the file object or NULL if no result was found.
  */
 function getFileById($id) {
-  require_once($_SERVER['DOCUMENT_ROOT'] . '/helpers/database_helper.php');
+  require_once(dirname(__FILE__) . '/../helpers/database_helper.php');
 
   $sql = sqlSetup();
   $query = "SELECT * FROM FILES WHERE ID=$id";
@@ -29,7 +29,7 @@ function getFileById($id) {
  *  Returns the file object or NULL if no result was found.
  */
 function getFileByName($name) {
-  require_once($_SERVER['DOCUMENT_ROOT'] . '/wordpress/helpers/database_helper.php');
+  require_once(dirname(__FILE__) . '/../helpers/database_helper.php');
 
   $sql = sqlSetup();
   $query = "SELECT * FROM FILES WHERE NAME='$name'";
@@ -50,7 +50,7 @@ function getFileByName($name) {
  * @TODO Add limit and offset.
  */
 function getFilesByUserId($userId) {
-  require_once($_SERVER['DOCUMENT_ROOT'] . '/wordpress/helpers/database_helper.php');
+  require_once(dirname(__FILE__) . '/../helpers/database_helper.php');
 
   $sql = sqlSetup();
   $query = "SELECT * FROM FILES WHERE UID=$userId";
@@ -78,7 +78,7 @@ function getFilesByUserId($userId) {
  */
 function storeFile($name, $filetype, $userId) {
   $time = time();
-  require_once($_SERVER['DOCUMENT_ROOT'] . '/wordpress/helpers/database_helper.php');
+  require_once(dirname(__FILE__) . '/../helpers/database_helper.php');
 
   $sql = sqlSetup();
   $query = "INSERT INTO FILES (NAME, UID, UPLOADED, ACCESSED, FILETYPE)
@@ -100,7 +100,7 @@ function storeFile($name, $filetype, $userId) {
  */
 function accessFile($id) {
   $time = time();
-  require_once($_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['PHP_SELF']), '/\\') . '/helpers/database_helper.php');
+  require_once(dirname(__FILE__) . '/../helpers/database_helper.php');
 
   $sql = sqlSetup();
   $query = "UPDATE FILES

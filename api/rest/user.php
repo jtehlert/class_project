@@ -1,6 +1,6 @@
 <?php
 
-require_once($_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['PHP_SELF']), '/\\') . '/api/user.php');
+require_once(dirname(__FILE__) . '/../user.php');
 
 if (isset($_GET['id'])) {
   print(json_encode(getUserById($_GET['id'])));
