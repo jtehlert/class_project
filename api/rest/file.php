@@ -1,6 +1,6 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api/file.php');
+require_once(dirname(__FILE__) . '/../file.php');
 
 if (isset($_GET['id'])) {
   print(json_encode(getFileById($_GET['id'])));

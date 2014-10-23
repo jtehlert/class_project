@@ -1,5 +1,10 @@
+<?php
+require_once(dirname(__FILE__) . '/../../config.php');
+?>
 </div> <!-- End Container -->
-
-<script type="text/javascript" src="http://<?php echo $_SERVER['HTTP_HOST'];?>/assets/js/retina.min.js"></script>
 </body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="<?php print('http://' . $_SERVER['HTTP_HOST'] . $_IWP_DIR_ . '/assets/js/retina.min.js'); ?>"></script>
+<script type="text/javascript" src="<?php print('http://' . $_SERVER['HTTP_HOST'] . $_IWP_DIR_ . '/assets/js/sweet-alert.min.js'); ?>"></script>
+<script type="text/javascript" src="<?php print('http://' . $_SERVER['HTTP_HOST'] . $_IWP_DIR_ . '/assets/js/main_page/main_page.js'); ?>"></script>
 </html>

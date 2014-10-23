@@ -10,7 +10,7 @@
  *  Returns the user object or NULL if no result was found.
  */
 function getUserById($id) {
-  require_once($_SERVER['DOCUMENT_ROOT'] . '/helpers/database_helper.php');
+  require_once(dirname(__FILE__) . '/../helpers/database_helper.php');
 
   $sql = sqlSetup();
   $query = "SELECT * FROM USERS WHERE ID=$id";
@@ -29,7 +29,7 @@ function getUserById($id) {
  *  Returns the user object or NULL if no result was found.
  */
 function getUserByEmail($email) {
-  require_once($_SERVER['DOCUMENT_ROOT'] . '/helpers/database_helper.php');
+  require_once(dirname(__FILE__) . '/../helpers/database_helper.php');
 
   $sql = sqlSetup();
   $query = "SELECT * FROM USERS WHERE EMAIL='$email'";
