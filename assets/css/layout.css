@@ -118,7 +118,6 @@ a {
 
 .sidebar-add-button:hover {
     background-color: green;
-    cursor: pointer;
 }
 
 .sidebar-add-button ul {
@@ -145,6 +144,7 @@ a {
 
 .sidebar-add-button ul li:hover {
     background-color: pink;
+    cursor: pointer;
 }
 
 #sidebar-search {
@@ -367,6 +367,10 @@ a {
 }
 
 #add-clipping-overlay {
+    visibility: hidden;
+}
+
+#add-notebook-overlay {
     visibility: hidden;
 }
 

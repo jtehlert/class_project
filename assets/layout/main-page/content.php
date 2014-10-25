@@ -3,6 +3,7 @@
   <?php 
     require 'overlays/add-clipping.php';
     require 'overlays/share.php';
+    require 'overlays/add-notebook.php';
   ?>
 
 	<div id="content-header">
