@@ -15,7 +15,7 @@
         <!-- <img src="http://<?php //echo $_SERVER['HTTP_HOST'];?>/assets/images/alerts.png" alt=""> -->
       </div>
     </a>
-    <div class="sidebar-add-button" onclick="showOverlay()">
+    <div class="sidebar-add-button" onclick="showClippingOverlay()">
       Add
       <ul>
         <li><a href="#">Add Clipping</a></li>

@@ -20,18 +20,41 @@ function loadClippings() {
 }
 
 // Modal controls.
-function showOverlay() {
-    el = document.getElementById("overlay");
+function showClippingOverlay() {
+    el = document.getElementById("add-clipping-overlay");
     el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
 
+    showOverlayBackground();
+}
+
+function hideClippingOverlay() {
+    el = document.getElementById("add-clipping-overlay");
+    el.style.visibility = "hidden";
+
+    hideOverlayBackground();
+}
+
+// Share Modal controls.
+function showShareOverlay() {
+    el = document.getElementById("share-overlay");
+    el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+
+    showOverlayBackground();
+}
+
+function hideShareOverlay() {
+    el = document.getElementById("share-overlay");
+    el.style.visibility = "hidden";
+
+    hideOverlayBackground();
+}
+
+function showOverlayBackground() {
     bg = document.getElementById("overlay-background");
     bg.style.display = (bg.style.display == "block") ? "none" : "block";
 }
 
-function hideOverlay() {
-    el = document.getElementById("overlay");
-    el.style.visibility = "hidden";
-
+function hideOverlayBackground() {
     bg = document.getElementById("overlay-background");
     bg.style.display = "none";
 }

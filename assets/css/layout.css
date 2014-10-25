@@ -355,8 +355,7 @@ a {
 /* #Modal Styles
 ================================================== */
 
-#overlay {
-     visibility: hidden;
+.overlay {
      position: absolute;
      left: 0px;
      top: 80px;
@@ -365,6 +364,14 @@ a {
      text-align:center;
      z-index: 2000;
      font-family: 'Open Sans', sans-serif;
+}
+
+#add-clipping-overlay {
+    visibility: hidden;
+}
+
+#share-overlay {
+    visibility: hidden;
 }
 
 #overlay-box {
