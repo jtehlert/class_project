@@ -17,6 +17,10 @@
     </a>
     <div class="sidebar-add-button" onclick="showOverlay()">
       Add
+      <ul>
+        <li><a href="#">Add Clipping</a></li>
+        <li><a href="#">Add Notebook</a></li>
+      </ul>  
     </div>
   </div>
   <div id="sidebar-search" >
