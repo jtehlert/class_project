@@ -15,11 +15,11 @@
         <!-- <img src="http://<?php //echo $_SERVER['HTTP_HOST'];?>/assets/images/alerts.png" alt=""> -->
       </div>
     </a>
-    <div class="sidebar-add-button" onclick="showOverlay()">
+    <div class="sidebar-add-button">
       Add
       <ul>
-        <li><a href="#">Add Clipping</a></li>
-        <li><a href="#">Add Notebook</a></li>
+        <li onclick="showClippingOverlay()">Add Clipping</li>
+        <li onclick="showNotebookOverlay()">Add Notebook</li>
       </ul>  
     </div>
   </div>

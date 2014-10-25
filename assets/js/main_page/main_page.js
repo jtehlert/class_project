@@ -19,19 +19,50 @@ function loadClippings() {
     });
 }
 
-// Modal controls.
-function showOverlay() {
-    el = document.getElementById("overlay");
+// Add Clipping Modal controls.
+function showClippingOverlay() {
+    el = document.getElementById("add-clipping-overlay");
     el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
 
+    showOverlayBackground();
+}
+
+function hideClippingOverlay() {
+    el = document.getElementById("add-clipping-overlay");
+    el.style.visibility = "hidden";
+
+    hideOverlayBackground();
+}
+
+// Add Notebook Modal controls.
+function showNotebookOverlay() {
+    el = document.getElementById("add-notebook-overlay");
+    el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+
+    showOverlayBackground();
+}
+
+// Share Modal controls.
+function showNotebookOverlay() {
+    el = document.getElementById("add-notebook-overlay");
+    el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+
+    showOverlayBackground();
+}
+
+function hideShareOverlay() {
+    el = document.getElementById("share-overlay");
+    el.style.visibility = "hidden";
+
+    hideOverlayBackground();
+}
+
+function showOverlayBackground() {
     bg = document.getElementById("overlay-background");
     bg.style.display = (bg.style.display == "block") ? "none" : "block";
 }
 
-function hideOverlay() {
-    el = document.getElementById("overlay");
-    el.style.visibility = "hidden";
-
+function hideOverlayBackground() {
     bg = document.getElementById("overlay-background");
     bg.style.display = "none";
 }
