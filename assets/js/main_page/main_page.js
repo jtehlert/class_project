@@ -19,7 +19,7 @@ function loadClippings() {
     });
 }
 
-// Add Clipping Modal controls.
+// Add Clipping Modal controls. ///////////////////////////////////////////////////
 function showClippingOverlay() {
     el = document.getElementById("add-clipping-overlay");
     el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
@@ -34,7 +34,7 @@ function hideClippingOverlay() {
     hideOverlayBackground();
 }
 
-// Add Notebook Modal controls.
+// Add Notebook Modal controls. ///////////////////////////////////////////////////
 function showNotebookOverlay() {
     el = document.getElementById("add-notebook-overlay");
     el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
@@ -42,9 +42,16 @@ function showNotebookOverlay() {
     showOverlayBackground();
 }
 
-// Share Modal controls.
-function showNotebookOverlay() {
+function hideNotebookOverlay() {
     el = document.getElementById("add-notebook-overlay");
+    el.style.visibility = "hidden";
+
+    hideOverlayBackground();
+}
+
+// Share Modal controls. ///////////////////////////////////////////////////////////
+function showShareOverlay() {
+    el = document.getElementById("share-overlay");
     el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
 
     showOverlayBackground();
