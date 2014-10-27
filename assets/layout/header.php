@@ -1,22 +1,22 @@
+<?php
+// Ensure that the user is logged in, if not, redirect to the login page.
+session_start();
+if (!$_SESSION['current_user']) {
+  $host = $_SERVER['HTTP_HOST'];
+  $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+  $extra = 'login.php';
+  header("location: http://$host$uri/$extra");
+}
+
+// Get the config file.
+require_once(dirname(__FILE__) . '/../../config.php');
+// Inject javascript variables.
+require_once 'helpers/javascript_variable_injection.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <?php
-  // Ensure that the user is logged in, if not, redirect to the login page.
-  session_start();
-  if (!$_SESSION['current_user']) {
-    $host = $_SERVER['HTTP_HOST'];
-    $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-    $extra = 'login.php';
-    header("location: http://$host$uri/$extra");
-  }
-
-  // Get the config file.
-  require_once(dirname(__FILE__) . '/../../config.php');
-  // Inject javascript variables.
-  require_once 'helpers/javascript_variable_injection.php';
-  ?>
   <title><?php echo $_TITLE_; ?></title>
   <meta name="description" content="<?php echo $_DESCRIPTION_; ?>">
 

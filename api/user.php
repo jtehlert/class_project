@@ -38,6 +38,26 @@ function getUserByEmail($email) {
   return $obj;
 }
 
+/**
+ * Fetches all users.
+ *
+ * @return null|object
+ *  Returns the user object or NULL if no result was found.
+ */
+function getAllUsers() {
+  require_once(dirname(__FILE__) . '/../helpers/database_helper.php');
+
+  $sql = sqlSetup();
+  $query = "SELECT * FROM USERS";
+  $result = mysqli_query($sql, $query);
+
+  $users = array();
+  while ($obj = mysqli_fetch_object($result)) {
+    $users[] = $obj;
+  }
+  return $users;
+}
+
 function updateUser($user) {
   // TODO: Add update user functionality.
 }
