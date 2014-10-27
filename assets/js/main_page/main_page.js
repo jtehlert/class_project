@@ -177,7 +177,7 @@ function fileUploadFormHandler() {
         // Open the connection.
         xhr.open('GET', window.location.origin + "/api/rest/clipping.php?userId=" + JSIuid + "&file=" + file + "&content=" + content + "&name=" + name + "&subtitle=" + subtitle, false);
         xhr.send();
-        hideOverlay();
+        hideClippingOverlay();
 
         var paras = document.getElementsByClassName('sidebar-list-link');
 
