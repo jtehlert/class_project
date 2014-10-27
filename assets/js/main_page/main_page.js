@@ -1,19 +1,36 @@
 $(document).ready(function() {
     loadClippings();
+    loadShareUsers();
     fileUploadFormHandler();
 })
 
 // Loads clipping links into the sidebar.
 function loadClippings() {
     $.ajax({
-        url: window.location.origin + '/api/rest/clipping.php?uid=' + JSIuid
+        url: window.location.origin + JSI_IWP_DIR  + '/api/rest/clipping.php?uid=' + JSIuid
     }).done(function(response) {
         var responseObject = JSON.parse(response);
         for (var i in responseObject) {
             $.ajax({
-                url: window.location.origin + '/api/markup/markup-clipping_sidebar_row.php?id=' + responseObject[i].ID + '&name=' + responseObject[i].NAME + '&subtitle=' + responseObject[i].SUBTITLE
+                url: window.location.origin + JSI_IWP_DIR  + '/api/markup/markup-clipping_sidebar_row.php?id=' + responseObject[i].ID + '&name=' + responseObject[i].NAME + '&subtitle=' + responseObject[i].SUBTITLE
             }).done(function(markup) {
                 $('#sidebar-list').prepend(markup);
+            });
+        }
+    });
+}
+
+// Loads users for the share modal.
+function loadShareUsers() {
+    $.ajax({
+        url: window.location.origin + JSI_IWP_DIR  + '/api/rest/user.php?all=TRUE'
+    }).done(function(response) {
+        var responseObject = JSON.parse(response);
+        for (var i in responseObject) {
+            $.ajax({
+                url: window.location.origin + JSI_IWP_DIR  + '/api/markup/markup-share_user_row.php?id=' + responseObject[i].ID + '&fname=' + responseObject[i].FNAME + '&lname=' + responseObject[i].LNAME
+            }).done(function(markup) {
+                $('#user-share-list').prepend(markup);
             });
         }
     });
@@ -91,12 +108,22 @@ function copyText() {
 }
 
 function clickClipping(id) {
+    // Deselect any previously selected clipping.
+    var selectedClippings = document.getElementsByClassName('selected');
+    for (var i = 0; i < selectedClippings.length; i++) {
+        selectedClippings[i].classList.remove('selected');
+    }
+
+    // Mark the clipping as selected.
+    var element = document.getElementById(id);
+    element.classList.add('selected');
+
     // Get the id of the clipping.
     id = id.substring(id.indexOf('-') + 1);
 
     // Get the clippings content from the API.
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', window.location.origin + "/api/rest/clipping.php?id=" + id, false);
+    xhr.open('GET', window.location.origin + JSI_IWP_DIR  + "/api/rest/clipping.php?id=" + id, false);
     xhr.send();
     var contents = JSON.parse(xhr.responseText);
 
@@ -112,6 +139,28 @@ function clickClipping(id) {
         document.getElementById('comment-button').innerHTML = 'Comment';
         document.getElementById('organize-button').innerHTML = 'Organize';
     }
+}
+
+// Share the clipping with the user.
+function clickUser(uid) {
+    // Sanitize the uid.
+    uid = uid.substring(uid.indexOf('-') + 1);
+
+    // Get the info for the clipping.
+    var selectedClippingId = document.getElementsByClassName('selected')[0].id;
+    id = selectedClippingId.substring(selectedClippingId.indexOf('-') + 1);
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', window.location.origin + JSI_IWP_DIR  + "/api/rest/clipping.php?id=" + id, false);
+    xhr.send();
+    var contents = JSON.parse(xhr.responseText);
+
+    // Give it to the new user.
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', window.location.origin + JSI_IWP_DIR  + "/api/rest/clipping.php?userId=" + uid + "&file=" + contents.ORIGFILE + "&content=" + contents.CONTENT + "&name=" + contents.NAME + "&subtitle=" + contents.SUBTITLE, false);
+    xhr.send();
+
+    hideShareOverlay();
+    swal("Clipping shared!");
 }
 
 function fileUploadFormHandler() {
@@ -143,7 +192,7 @@ function fileUploadFormHandler() {
         var xhr = new XMLHttpRequest();
 
         // Open the connection.
-        xhr.open('POST', window.location.origin + "/helpers/file_upload.php", false);
+        xhr.open('POST', window.location.origin + JSI_IWP_DIR  + "/helpers/file_upload.php", false);
 
         // Send the Data.
         xhr.send(formData);
@@ -159,7 +208,7 @@ function fileUploadFormHandler() {
         var xhr = new XMLHttpRequest();
 
         // Open the connection.
-        xhr.open('GET', window.location.origin + "/uploads/" + fname, false);
+        xhr.open('GET', window.location.origin + JSI_IWP_DIR  + "/uploads/" + fname, false);
 
         // Send the request.
         xhr.send();
@@ -190,7 +239,7 @@ function fileUploadFormHandler() {
         var xhr = new XMLHttpRequest();
 
         // Open the connection.
-        xhr.open('GET', window.location.origin + "/api/rest/clipping.php?userId=" + JSIuid + "&file=" + file + "&content=" + content + "&name=" + name + "&subtitle=" + subtitle, false);
+        xhr.open('GET', window.location.origin + JSI_IWP_DIR  + "/api/rest/clipping.php?userId=" + JSIuid + "&file=" + file + "&content=" + content + "&name=" + name + "&subtitle=" + subtitle, false);
         xhr.send();
         hideClippingOverlay();
 

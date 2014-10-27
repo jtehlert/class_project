@@ -1,21 +1,21 @@
+<?php
+// Start the session.
+session_start();
+
+// If the user is already logged in, send them to the home page.
+if (isset($_SESSION['current_user'])) {
+  $host = $_SERVER['HTTP_HOST'];
+  $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+  $extra = '';
+  header("location: http://$host$uri/$extra");
+}
+
+require_once('config.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <?php
-    require_once('config.php');
-
-    // Start the session.
-    session_start();
-
-    // If the user is already logged in, send them to the home page.
-    if (isset($_SESSION['current_user'])) {
-      $host = $_SERVER['HTTP_HOST'];
-      $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-      $extra = '';
-      header("location: http://$host$uri/$extra");
-    }
-    ?>
 
     <!-- Title and description -->
     <title><?php echo $_TITLE_; ?></title>
