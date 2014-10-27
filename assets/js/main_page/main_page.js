@@ -42,10 +42,17 @@ function showNotebookOverlay() {
     showOverlayBackground();
 }
 
-// Share Modal controls.
-function showNotebookOverlay() {
+function hideNotebookOverlay() {
     el = document.getElementById("add-notebook-overlay");
     el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+
+    showOverlayBackground();
+}
+
+// Share Modal controls.
+function showShareOverlay() {
+    el = document.getElementById("share-overlay");
+    el.style.visibility = "visible";
 
     showOverlayBackground();
 }
