@@ -101,3 +101,25 @@ function getClippingContent($id) {
   $content = $content[0];
   return $content;
 }
+
+
+function getShareUsers($cid, $uid) {
+  require_once(dirname(__FILE__) . '/../helpers/database_helper.php');
+
+  $sql = sqlSetup();
+  $query = "SELECT MIN(u.ID) as ID, u.EMAIL, u.PASSWORD, u.FNAME, u.LNAME, u.NOTIFICATION FROM USERS as u
+            LEFT JOIN SHARED_CLIPPINGS as s ON u.ID=s.UID
+            WHERE ((s.ID IS NULL) OR (NOT s.ORIGCID=$cid)) AND NOT u.ID=$uid";
+  $result = mysqli_query($sql, $query);
+
+  $users = array();
+  while ($obj = mysqli_fetch_object($result)) {
+    if (!($obj->ID == NULL)) {
+      $users[] = $obj;
+    }
+  }
+  if (!empty($users)) {
+    return $users;
+  }
+  return NULL;
+}
