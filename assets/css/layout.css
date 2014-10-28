@@ -234,20 +234,24 @@ a {
     cursor: pointer;
 }
 
-#sidebar-list-cell .title {
+.sidebar-list-cell .title {
     font-size: 20px;
     margin-bottom: 2px;
     line-height: 20px;
 }
 
-#sidebar-list-cell .subtitle {
+.sidebar-list-cell .subtitle {
     line-height: 20px;
     font-size: 12px;
     color: white;
 }
 
-#sidebar-list-cell:hover {
+.sidebar-list-cell:hover {
     background-color: #2980b9;
+}
+
+.sidebar-list-cell.shared {
+    background-color: #A5DC86;
 }
 
 #sidebar-list::-webkit-scrollbar {

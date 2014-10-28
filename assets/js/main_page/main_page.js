@@ -1,8 +1,20 @@
 $(document).ready(function() {
+    displayNotifications();
     loadClippings();
     loadShareUsers();
     fileUploadFormHandler();
 })
+
+function displayNotifications() {
+    $.ajax({
+        url: window.location.origin + JSI_IWP_DIR  + '/api/rest/get_user_notification.php?uid=' + JSIuid
+    }).done(function(response) {
+        response = JSON.parse(response)[0];
+       if (response != '') {
+           swal(response);
+       }
+    });
+}
 
 // Loads clipping links into the sidebar.
 function loadClippings() {
@@ -12,7 +24,7 @@ function loadClippings() {
         var responseObject = JSON.parse(response);
         for (var i in responseObject) {
             $.ajax({
-                url: window.location.origin + JSI_IWP_DIR  + '/api/markup/markup-clipping_sidebar_row.php?id=' + responseObject[i].ID + '&name=' + responseObject[i].NAME + '&subtitle=' + responseObject[i].SUBTITLE
+                url: window.location.origin + JSI_IWP_DIR  + '/api/markup/markup-clipping_sidebar_row.php?id=' + responseObject[i].ID + '&uid=' + JSIuid + '&name=' + responseObject[i].NAME + '&subtitle=' + responseObject[i].SUBTITLE
             }).done(function(markup) {
                 $('#sidebar-list').prepend(markup);
             });
@@ -154,9 +166,9 @@ function clickUser(uid) {
     xhr.send();
     var contents = JSON.parse(xhr.responseText);
 
-    // Give it to the new user.
+    // Share the clipping with the user.
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', window.location.origin + JSI_IWP_DIR  + "/api/rest/clipping.php?userId=" + uid + "&file=" + contents.ORIGFILE + "&content=" + contents.CONTENT + "&name=" + contents.NAME + "&subtitle=" + contents.SUBTITLE, false);
+    xhr.open('GET', window.location.origin + JSI_IWP_DIR  + "/api/rest/share_clipping.php?cid=" + id + "&uid=" + uid, true);
     xhr.send();
 
     hideShareOverlay();

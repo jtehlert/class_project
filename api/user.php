@@ -58,6 +58,37 @@ function getAllUsers() {
   return $users;
 }
 
+function getUserNotification($uid) {
+  require_once(dirname(__FILE__) . '/../helpers/database_helper.php');
+
+  $sql = sqlSetup();
+  $query = "SELECT NOTIFICATION FROM USERS WHERE ID=$uid";
+  $result = mysqli_query($sql, $query);
+  return mysqli_fetch_row($result);
+}
+
+function setUserNotification($uid, $notification) {
+  require_once(dirname(__FILE__) . '/../helpers/database_helper.php');
+
+  $sql = sqlSetup();
+  $query = "UPDATE USERS
+            SET NOTIFICATION='$notification'
+            WHERE ID=$uid";
+  mysqli_query($sql, $query);
+  return TRUE;
+}
+
+function unsetUserNotification($uid) {
+  require_once(dirname(__FILE__) . '/../helpers/database_helper.php');
+
+  $sql = sqlSetup();
+  $query = "UPDATE USERS
+            SET NOTIFICATION=''
+            WHERE ID=$uid";
+  mysqli_query($sql, $query);
+  return TRUE;
+}
+
 function updateUser($user) {
   // TODO: Add update user functionality.
 }
