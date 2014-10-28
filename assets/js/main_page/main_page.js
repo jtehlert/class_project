@@ -1,7 +1,6 @@
 $(document).ready(function() {
     displayNotifications();
     loadClippings();
-    loadShareUsers();
     fileUploadFormHandler();
 })
 
@@ -33,9 +32,9 @@ function loadClippings() {
 }
 
 // Loads users for the share modal.
-function loadShareUsers() {
+function loadShareUsers(cid) {
     $.ajax({
-        url: window.location.origin + JSI_IWP_DIR  + '/api/rest/user.php?all=TRUE'
+        url: window.location.origin + JSI_IWP_DIR  + '/api/rest/get_share_users.php?cid=' + cid + '&uid=' + JSIuid
     }).done(function(response) {
         var responseObject = JSON.parse(response);
         for (var i in responseObject) {
@@ -80,16 +79,14 @@ function hideNotebookOverlay() {
 
 // Share Modal controls. ///////////////////////////////////////////////////////////
 function showShareOverlay() {
+
+    // Load the users that can be shared with.
+    var selectedClippingId = document.getElementsByClassName('selected')[0].id;
+    id = selectedClippingId.substring(selectedClippingId.indexOf('-') + 1);
+    loadShareUsers(id);
+
     el = document.getElementById("share-overlay");
     el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
-
-    showOverlayBackground();
-}
-
-// Share Modal controls.
-function showShareOverlay() {
-    el = document.getElementById("share-overlay");
-    el.style.visibility = "visible";
 
     showOverlayBackground();
 }
@@ -97,6 +94,13 @@ function showShareOverlay() {
 function hideShareOverlay() {
     el = document.getElementById("share-overlay");
     el.style.visibility = "hidden";
+
+    // Remove all of the users who could be shared to.
+    var paras = document.getElementsByClassName('user-share-list-link');
+
+    while(paras[0]) {
+        paras[0].parentNode.removeChild(paras[0]);
+    }
 
     hideOverlayBackground();
 }
@@ -161,15 +165,18 @@ function clickUser(uid) {
     // Get the info for the clipping.
     var selectedClippingId = document.getElementsByClassName('selected')[0].id;
     id = selectedClippingId.substring(selectedClippingId.indexOf('-') + 1);
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', window.location.origin + JSI_IWP_DIR  + "/api/rest/clipping.php?id=" + id, false);
-    xhr.send();
-    var contents = JSON.parse(xhr.responseText);
 
     // Share the clipping with the user.
     var xhr = new XMLHttpRequest();
     xhr.open('GET', window.location.origin + JSI_IWP_DIR  + "/api/rest/share_clipping.php?cid=" + id + "&uid=" + uid, true);
     xhr.send();
+
+    // Remove all of the users who could be shared to.
+    var paras = document.getElementsByClassName('user-share-list-link');
+
+    while(paras[0]) {
+        paras[0].parentNode.removeChild(paras[0]);
+    }
 
     hideShareOverlay();
     swal("Clipping shared!");
