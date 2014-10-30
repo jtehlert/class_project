@@ -26,6 +26,10 @@ function loadClippings() {
                 url: window.location.origin + JSI_IWP_DIR  + '/api/markup/markup-clipping_sidebar_row.php?id=' + responseObject[i].ID + '&uid=' + JSIuid + '&name=' + responseObject[i].NAME + '&subtitle=' + responseObject[i].SUBTITLE
             }).done(function(markup) {
                 $('#sidebar-list').prepend(markup);
+
+                // Click the last clipping.
+                // TODO: Find a better way to do this.
+                clickClipping('clipping-' + responseObject[i].ID);
             });
         }
     });
