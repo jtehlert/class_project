@@ -107,18 +107,31 @@ function getShareUsers($cid, $uid) {
   require_once(dirname(__FILE__) . '/../helpers/database_helper.php');
 
   $sql = sqlSetup();
-  $query = "SELECT MIN(u.ID) as ID, u.EMAIL, u.PASSWORD, u.FNAME, u.LNAME, u.NOTIFICATION FROM USERS as u
-            LEFT JOIN SHARED_CLIPPINGS as s ON u.ID=s.UID
-            WHERE ((s.ID IS NULL) OR (NOT s.ORIGCID=$cid)) AND NOT u.ID=$uid";
+  $query = "SELECT u.ID, u.EMAIL, u.PASSWORD, u.FNAME, u.LNAME, u.NOTIFICATION, s.ORIGCID FROM USERS as u
+            LEFT JOIN SHARED_CLIPPINGS as s ON u.ID=s.UID";
   $result = mysqli_query($sql, $query);
 
   $users = array();
+  $disqualified = array();
   while ($obj = mysqli_fetch_object($result)) {
     if (!($obj->ID == NULL)) {
-      $users[] = $obj;
+      if (($obj->ORIGCID == $cid) || ($obj->ID == $uid)) {
+        $disqualified[] = $obj->ID;
+      }
+      else {
+        $users[] = $obj;
+      }
     }
   }
   if (!empty($users)) {
+    $users = array_filter($users, function($user) use ($disqualified) {
+      foreach ($disqualified as $id) {
+        if ($user->ID == $id) {
+          return FALSE;
+        }
+      }
+      return TRUE;
+    });
     return $users;
   }
   return NULL;
