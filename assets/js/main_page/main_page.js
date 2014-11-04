@@ -4,6 +4,11 @@ $(document).ready(function() {
     fileUploadFormHandler();
 })
 
+var origSelectedShareRecipients = [];
+var origUnselectedShareRecipients = [];
+var selectedShareRecipients = [];
+var unselectedShareRecipients = [];
+
 function displayNotifications() {
     $.ajax({
         url: window.location.origin + JSI_IWP_DIR  + '/api/rest/get_user_notification.php?uid=' + JSIuid
@@ -36,14 +41,33 @@ function loadClippings() {
 }
 
 // Loads users for the share modal.
+function loadPrevSharedUsers(cid) {
+    $.ajax({
+        url: window.location.origin + JSI_IWP_DIR  + '/api/rest/get_previously_shared_users.php?cid=' + cid + '&uid=' + JSIuid
+    }).done(function(response) {
+        var responseObject = JSON.parse(response);
+        for (var i in responseObject) {
+            origSelectedShareRecipients.push(responseObject[i].ID);
+            selectedShareRecipients.push(responseObject[i].ID);
+            $.ajax({
+                url: window.location.origin + JSI_IWP_DIR  + '/api/markup/markup-share_user_row.php?id=' + responseObject[i].ID + '&fname=' + responseObject[i].FNAME + '&lname=' + responseObject[i].LNAME + '&shared=true'
+            }).done(function(markup) {
+                $('#user-share-list').prepend(markup);
+            });
+        }
+    });
+}
+
 function loadShareUsers(cid) {
     $.ajax({
         url: window.location.origin + JSI_IWP_DIR  + '/api/rest/get_share_users.php?cid=' + cid + '&uid=' + JSIuid
     }).done(function(response) {
         var responseObject = JSON.parse(response);
         for (var i in responseObject) {
+            origUnselectedShareRecipients.push(responseObject[i].ID);
+            unselectedShareRecipients.push(responseObject[i].ID);
             $.ajax({
-                url: window.location.origin + JSI_IWP_DIR  + '/api/markup/markup-share_user_row.php?id=' + responseObject[i].ID + '&fname=' + responseObject[i].FNAME + '&lname=' + responseObject[i].LNAME
+                url: window.location.origin + JSI_IWP_DIR  + '/api/markup/markup-share_user_row.php?id=' + responseObject[i].ID + '&fname=' + responseObject[i].FNAME + '&lname=' + responseObject[i].LNAME + '&shared=false'
             }).done(function(markup) {
                 $('#user-share-list').prepend(markup);
             });
@@ -88,6 +112,7 @@ function showShareOverlay() {
     var selectedClippingId = document.getElementsByClassName('selected')[0].id;
     id = selectedClippingId.substring(selectedClippingId.indexOf('-') + 1);
     loadShareUsers(id);
+    loadPrevSharedUsers(id);
 
     el = document.getElementById("share-overlay");
     el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
@@ -105,6 +130,16 @@ function hideShareOverlay() {
     while(paras[0]) {
         paras[0].parentNode.removeChild(paras[0]);
     }
+
+    var paras = document.getElementsByClassName('user-previously-shared-list-link');
+
+    while(paras[0]) {
+        paras[0].parentNode.removeChild(paras[0]);
+    }
+
+    // Clear out the share array.
+    selectedShareRecipients = [];
+    unselectedShareRecipients = [];
 
     hideOverlayBackground();
 }
@@ -161,29 +196,79 @@ function clickClipping(id) {
     }
 }
 
-// Share the clipping with the user.
 function clickUser(uid) {
-    // Sanitize the uid.
-    uid = uid.substring(uid.indexOf('-') + 1);
+    var $clickedRow = $('#' + uid);
+    var uid = uid.substring(uid.indexOf('-') + 1);
+
+
+    if ($clickedRow.hasClass('user-previously-shared-list-link')) {
+        // Unselect.
+        $clickedRow.removeClass('user-previously-shared-list-link');
+        $clickedRow.addClass('user-share-list-link');
+        var $child = $clickedRow.children('.user-previously-shared-list-cell');
+        $child.removeClass('user-previously-shared-list-cell');
+        $child.addClass('user-share-list-cell')
+        selectedShareRecipients = $.grep(selectedShareRecipients, function(value) {
+            return value != uid;
+        });
+        unselectedShareRecipients.push(uid);
+    }
+    else {
+        // Select.
+        $clickedRow.addClass('user-previously-shared-list-link');
+        $clickedRow.removeClass('user-share-list-link');
+        var $child = $clickedRow.children('.user-share-list-cell');
+        $child.addClass('user-previously-shared-list-cell');
+        $child.removeClass('user-share-list-cell')
+        unselectedShareRecipients = $.grep(unselectedShareRecipients, function(value) {
+            return value != uid;
+        });
+        selectedShareRecipients.push(uid);
+    }
+}
+
+// Share the clipping with the user.
+function shareSubmit() {
 
     // Get the info for the clipping.
     var selectedClippingId = document.getElementsByClassName('selected')[0].id;
     id = selectedClippingId.substring(selectedClippingId.indexOf('-') + 1);
 
+    // Share the clipping with the users who have been selected.
+    // Convert the uids array to JSON.
+    // Filter out those who have already been shared with.
+    selectedShareRecipients = selectedShareRecipients.filter(function(val) {
+        return origSelectedShareRecipients.indexOf(val) == -1;
+    });
+    var uidsJson = JSON.stringify(selectedShareRecipients);
+
     // Share the clipping with the user.
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', window.location.origin + JSI_IWP_DIR  + "/api/rest/share_clipping.php?cid=" + id + "&uid=" + uid, true);
+    xhr.open('GET', window.location.origin + JSI_IWP_DIR  + "/api/rest/batch_share_clipping.php?cid=" + id + "&uids=" + uidsJson + "&current_uid=" + JSIuid, true);
     xhr.send();
 
-    // Remove all of the users who could be shared to.
-    var paras = document.getElementsByClassName('user-share-list-link');
+    // Unshare the clipping with the users who have been selected.
+    // Convert the uids array to JSON.
+    // Filter out those who have already been shared with.
+    unselectedShareRecipients = unselectedShareRecipients.filter(function(val) {
+        return origUnselectedShareRecipients.indexOf(val) == -1;
+    });
+    var uidsJson = JSON.stringify(unselectedShareRecipients);
 
-    while(paras[0]) {
-        paras[0].parentNode.removeChild(paras[0]);
-    }
+    // Share the clipping with the user.
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', window.location.origin + JSI_IWP_DIR  + "/api/rest/batch_unshare_clipping.php?cid=" + id + "&uids=" + uidsJson + "&current_uid=" + JSIuid, true);
+    xhr.send();
+
+    // Clear out the share arrays.
+    selectedShareRecipients = [];
+    unselectedShareRecipients = [];
 
     hideShareOverlay();
-    swal("Clipping shared!");
+
+    // TODO: Fix bug where you can't un/re share without refreshing the page.
+    location.reload();
+    //swal("Clipping shared!");
 }
 
 function fileUploadFormHandler() {

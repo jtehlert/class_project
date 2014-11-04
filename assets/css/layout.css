@@ -49,6 +49,12 @@ a {
     color: #1C1C1C;
 }
 
+#logo img {
+    height: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
 #logout {
     float: right;
     line-height: 60px;
@@ -223,12 +229,11 @@ a {
 .sidebar-list-cell {
     width: 100%;
     height: 60px;
-    background-color: #3498db;
+    background-color: #C4C4C4;
     margin-bottom: 5px;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    padding-left: 5px;
-    padding-top: 5px;
+    padding: 5px;
     font-family: 'Open Sans', sans-serif;
     color: white;
     cursor: pointer;
@@ -246,12 +251,27 @@ a {
     color: white;
 }
 
-.sidebar-list-cell:hover {
-    background-color: #2980b9;
-}
+/*.sidebar-list-cell:hover {*/
+    /*background-color: #F7F7F7;*/
+/*}*/
 
 .sidebar-list-cell.shared {
-    background-color: #A5DC86;
+    background-color: #C4C4C4;
+}
+
+.sidebar-list-link.selected > .sidebar-list-cell {
+    background-color: #6B6B6B;
+}
+
+.clipping-shared-icon {
+    display: inline-block;
+    height: 80%;
+    float: right;
+    visibility: hidden;
+}
+
+.shared > .clipping-shared-icon {
+    visibility: visible;
 }
 
 #sidebar-list::-webkit-scrollbar {
@@ -474,6 +494,49 @@ div #overlay-content {
 ================================================== */
 
 #user-share-list {
+    width: 60%;
+    height: 370px;
+    background-color: #444;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin: auto;
+}
+
+.user-share-list-cell {
+    width: 100%;
+    height: 30px;
+    background-color: #C4C4C4;
+    margin-bottom: 5px;
+    padding: 5px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    cursor: pointer;
+    text-align: left;
+}
+
+.user-share-list-cell .name {
+    font-size: 20px;
+    margin-bottom: 2px;
+    line-height: 20px;
+}
+
+.user-share-list-cell:hover {
+    background-color: #6B6B6B;
+}
+
+.user-share-list::-webkit-scrollbar {
+    width: 15px;
+    background-color: #252525;
+}
+
+.user-share-list::-webkit-scrollbar-thumb {
+    width: 15px;
+    background-color: #555;
+}
+
+#user-previously-shared-list {
     width: 100%;
     height: 370px;
     background-color: #444;
@@ -481,38 +544,67 @@ div #overlay-content {
     overflow-x: hidden;
 }
 
-.user-share-list-cell {
+.user-previously-shared-list-cell {
     width: 100%;
     height: 30px;
-    background-color: #3498db;
+    background-color: #F9B84E;
     margin-bottom: 5px;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    padding-left: 5px;
-    padding-top: 5px;
+    padding: 5px;
     font-family: 'Open Sans', sans-serif;
     color: white;
     cursor: pointer;
+    text-align: left;
 }
 
-#user-share-list-cell .name {
+.user-previously-shared-list-cell .name {
     font-size: 20px;
     margin-bottom: 2px;
     line-height: 20px;
 }
 
-#user-share-list-cell:hover {
-    background-color: #2980b9;
+.user-previously-shared-list-cell:hover {
+    background-color: #6B6B6B;
 }
 
-#user-share-list::-webkit-scrollbar {
+.user-previously-shared-list::-webkit-scrollbar {
     width: 15px;
     background-color: #252525;
 }
 
-#user-share-list::-webkit-scrollbar-thumb {
+.user-previously-shared-list::-webkit-scrollbar-thumb {
     width: 15px;
     background-color: #555;
+}
+
+.user-selected-check {
+    display: inline-block;
+    height: 100%;
+    float: right;
+}
+
+.user-share-list-cell .user-selected-check {
+    display: none;
+}
+
+.user-previously-shared-list-cell .user-selected-check {
+    display: inline-block;
+}
+
+#share-submit {
+    position: relative;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    height: 35px;
+    font-size: 16px;
+    font-weight: 400;
+    width: 120px;
+    color: #fff;
+    text-transform: uppercase;
+    background: #d83c3c;
+    margin-top: 20px;
 }
 
 /* #Form Styles
