@@ -29,7 +29,7 @@ require_once('config.php');
   </head>
   <body>
     <!-- Header -->
-    <h1 align="center" style="font-size: 1000%; font-family: 'Lobster', cursive;">Class Notebook</h1>
+    <image src="http://<?PHP echo ($_SERVER['HTTP_HOST'] . $_IWP_DIR_); ?>/assets/images/HCI-Clippr-logo_dark.png" style="display: block; margin-top: 50px; margin-bottom: 10px; margin-left: auto; margin-right: auto;"/>
 
     <!-- Login error alert -->
     <?php if (isset($_SESSION['login_error'])): ?>
