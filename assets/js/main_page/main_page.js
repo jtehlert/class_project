@@ -155,11 +155,21 @@ function hideOverlayBackground() {
 }
 
 // Onmouseup handler to copy text from clipping source to clipping result.
-function copyText() {
+function drag(ev) {
     if (window.getSelection) {
         text = window.getSelection().toString();
+        ev.dataTransfer.setData("text", text);
     }
-    document.getElementById("clipping-text").value = text;
+}
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    document.getElementById("clipping-text").value += data;
 }
 
 function clickClipping(id) {
