@@ -173,6 +173,9 @@ function drop(ev) {
 }
 
 function clickClipping(id) {
+    // Determine if the clipping is shared with the user or not.
+    var shared = ($('#' + id + '> .shared').length == 0) ? false : true;
+
     // Deselect any previously selected clipping.
     var selectedClippings = document.getElementsByClassName('selected');
     for (var i = 0; i < selectedClippings.length; i++) {
@@ -200,9 +203,17 @@ function clickClipping(id) {
     if(contents.NAME.length > 0)
     {
         document.getElementById('info-button').innerHTML = 'Info';
-        document.getElementById('share-button').innerHTML = 'Share';
         document.getElementById('comment-button').innerHTML = 'Comment';
         document.getElementById('organize-button').innerHTML = 'Organize';
+        if (!shared) {
+            document.getElementById('share-button').innerHTML = 'Share';
+            document.getElementById('share-button').onclick = showShareOverlay;
+        } else {
+            document.getElementById('share-button').innerHTML = '';
+            document.getElementById('share-button').onclick = function() {
+                swal('Sorry, but you cannot share a clipping that was shared with you.');
+            }
+        }
     }
 }
 
