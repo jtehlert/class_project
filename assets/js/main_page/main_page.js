@@ -2,6 +2,7 @@ $(document).ready(function() {
     displayNotifications();
     loadClippings();
     fileUploadFormHandler();
+
 })
 
 var origSelectedShareRecipients = [];
@@ -144,6 +145,21 @@ function hideShareOverlay() {
     hideOverlayBackground();
 }
 
+// Add Comment Modal controls. ///////////////////////////////////////////////////
+function showCommentOverlay() {
+    el = document.getElementById("add-comment-overlay");
+    el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+
+    showOverlayBackground();
+}
+
+function hideCommentOverlay() {
+    el = document.getElementById("add-comment-overlay");
+    el.style.visibility = "hidden";
+
+    hideOverlayBackground();
+}
+
 function showOverlayBackground() {
     bg = document.getElementById("overlay-background");
     bg.style.display = (bg.style.display == "block") ? "none" : "block";
@@ -200,6 +216,9 @@ function clickClipping(id) {
 
     document.getElementById('clipping-title').innerHTML = contents.NAME;
 
+    // Get the clippings comments.
+    loadClippingComments(id);
+
     if(contents.NAME.length > 0)
     {
         document.getElementById('info-button').innerHTML = 'Info';
@@ -215,6 +234,56 @@ function clickClipping(id) {
             }
         }
     }
+}
+
+/**
+ * Load's a clipping's comments into the comment area.
+ *
+ * @param int cid
+ *  The clipping's id.
+ */
+function loadClippingComments(cid) {
+
+    // Clear out old comments.
+    var paras = document.getElementsByClassName('comment-row');
+
+    while(paras[0]) {
+        paras[0].parentNode.removeChild(paras[0]);
+    }
+
+    // Load fresh comments.
+    $.ajax({
+        url: window.location.origin + JSI_IWP_DIR  + '/api/rest/comments/get_comments_by_clipping_id.php?cid=' + cid + '&name=true'
+    }).done(function(response) {
+        response = JSON.parse(response);
+        for (var i in response) {
+            $.ajax({
+                url: window.location.origin + JSI_IWP_DIR  + '/api/markup/markup-comment_row.php?fname=' + response[i].FNAME + '&lname=' + response[i].LNAME + '&content=' + response[i].CONTENT
+            }).done(function(markup) {
+                $('#comments-content').prepend(markup);
+            });
+        }
+    });
+}
+
+/**
+ * Submit handler for creating a new comment.
+ */
+function addCommentSubmit() {
+
+    // Get the info for the clipping.
+    var selectedClippingId = document.getElementsByClassName('selected')[0].id;
+    id = selectedClippingId.substring(selectedClippingId.indexOf('-') + 1);
+
+    // Get the content of the comment.
+    var content = $('#comment-content').val();
+
+    // Create the comment.
+    $.ajax({
+        url: window.location.origin + JSI_IWP_DIR  + "/api/rest/comments/create_comment.php?cid=" + id + "&uid=" + JSIuid + "&content=" + content
+    });
+
+    hideCommentOverlay();
 }
 
 function clickUser(uid) {
