@@ -63,3 +63,15 @@ function isClippingSharedWithUser($cid, $uid) {
   }
   return FALSE;
 }
+
+function getOriginalCid($cid) {
+  require_once(dirname(__FILE__) . '/../helpers/database_helper.php');
+
+  $sql = sqlSetup();
+  $query = "SELECT ORIGCID FROM SHARED_CLIPPINGS WHERE CID=$cid";
+  $result = mysqli_query($sql, $query);
+  if ($row = mysqli_fetch_object($result)) {
+    return $row->ORIGCID;
+  }
+  return NULL;
+}

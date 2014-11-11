@@ -4,6 +4,7 @@
     require 'overlays/add-clipping.php';
     require 'overlays/share.php';
     require 'overlays/add-notebook.php';
+    require 'overlays/add-comment.php';
   ?>
 
 	<div id="content-header">
@@ -24,8 +25,21 @@
 		</div>
 	</div>
 
-  	<textarea id="clipping-content">
-  	</textarea>
+  <textarea id="clipping-content">
+  </textarea>
+
+  <div id="comments-area">
+    <div id="comments-header">
+      <h3 id="comments-header-text">Comments</h3>
+      <div id="comments-header-horizontal-line"></div>
+    </div>
+    <div id="new-comment-row" onclick="showCommentOverlay()">
+      <h4>Add a new comment</h4>
+    </div>
+    <div id="comments-content">
+
+    </div>
+  </div>
 </div>
 
 <script>
