@@ -2,7 +2,7 @@ $(document).ready(function() {
     displayNotifications();
     loadClippings();
     fileUploadFormHandler();
-
+    addCommentSubmitHandler();
 })
 
 var origSelectedShareRecipients = [];
@@ -27,17 +27,23 @@ function loadClippings() {
         url: window.location.origin + JSI_IWP_DIR  + '/api/rest/clipping.php?uid=' + JSIuid
     }).done(function(response) {
         var responseObject = JSON.parse(response);
+        var numResponses = 0;
+        var promises = [];
         for (var i in responseObject) {
-            $.ajax({
+            numResponses ++;
+            var promise = $.ajax({
                 url: window.location.origin + JSI_IWP_DIR  + '/api/markup/markup-clipping_sidebar_row.php?id=' + responseObject[i].ID + '&uid=' + JSIuid + '&name=' + responseObject[i].NAME + '&subtitle=' + responseObject[i].SUBTITLE
             }).done(function(markup) {
                 $('#sidebar-list').prepend(markup);
 
                 // Click the last clipping.
                 // TODO: Find a better way to do this.
-                clickClipping('clipping-' + responseObject[i].ID);
             });
+            promises.push(promise);
         }
+        $.when.apply($, promises).done(function() {
+            clickClipping('clipping-' + responseObject[numResponses - 1].ID);
+        });
     });
 }
 
@@ -266,24 +272,25 @@ function loadClippingComments(cid) {
     });
 }
 
-/**
- * Submit handler for creating a new comment.
- */
-function addCommentSubmit() {
+function addCommentSubmitHandler() {
+    $('#comment-form').submit(function(event) {
+        event.preventDefault();
 
-    // Get the info for the clipping.
-    var selectedClippingId = document.getElementsByClassName('selected')[0].id;
-    id = selectedClippingId.substring(selectedClippingId.indexOf('-') + 1);
+        // Get the info for the clipping.
+        var selectedClippingId = document.getElementsByClassName('selected')[0].id;
+        var id = selectedClippingId.substring(selectedClippingId.indexOf('-') + 1);
 
-    // Get the content of the comment.
-    var content = $('#comment-content').val();
+        // Get the content of the comment.
+        var content = $('#comment-content').val();
 
-    // Create the comment.
-    $.ajax({
-        url: window.location.origin + JSI_IWP_DIR  + "/api/rest/comments/create_comment.php?cid=" + id + "&uid=" + JSIuid + "&content=" + content
+        // Create the comment.
+        $.ajax({
+            url: window.location.origin + JSI_IWP_DIR  + "/api/rest/comments/create_comment.php?cid=" + id + "&uid=" + JSIuid + "&content=" + content
+        }).done(function(response) {
+            loadClippingComments(id);
+            hideCommentOverlay();
+        });
     });
-
-    hideCommentOverlay();
 }
 
 function clickUser(uid) {
