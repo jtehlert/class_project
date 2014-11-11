@@ -62,3 +62,13 @@ $query = 'CREATE TABLE IF NOT EXISTS ' . $_DB_SHARED_CLIPPINGS_TABLE_ . '(
   PRIMARY KEY (ID)
   )';
 mysqli_query($sql, $query) or die("A MySQL error has occurred.<br />Error: (" . mysqli_errno($sql) . ") " . mysqli_error($sql));
+
+// Create the comments table.
+$query = "CREATE TABLE IF NOT EXISTS COMMENTS (
+  ID int(11) AUTO_INCREMENT,
+  CID int(11) NOT NULL,
+  UID int(11) NOT NULL,
+  CONTENT longtext,
+  PRIMARY KEY (ID)
+)";
+mysqli_query($sql, $query) or die("A MySQL error has occurred.<br />Error: (" . mysqli_errno($sql) . ") " . mysqli_error($sql));
