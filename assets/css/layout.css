@@ -84,79 +84,91 @@ a {
 
 #sidebar {
     height: 500px;
-    /*background-color: #333;*/
+    font-family: 'Open Sans', sans-serif;
 }
 
 #sidebar-buttons {
     width: 100%;
     height: 50px;
-    background-color: #555;
+}
+
+#sidebar-buttons img {
+    width: 100%;
+    height: 100%;
 }
 
 .sidebar-button {
-    width: 20%;
     height: 100%;
-    background-color: red;
-    float:left ;
+    background-color: #6B6B6B;
+    -webkit-border-radius: 2px;
+    float: left;
+    color: white;
 }
 
 .sidebar-button:hover {
-    background-color: blue;
+    background-color: #EF4D68;
+    cursor: pointer;
+}
+
+#sidebar-add-buttons {
+    width: 100%;
+    margin-top: 10px;
+    line-height: 40px;
+    text-align: center;
+    color: white;
+}
+
+.revealable {
+    height: 0px;
+    overflow: hidden;
+    -webkit-transition: height 0.2s;
+    -moz-transition: height 0.2s;
+    transition: height 0.2s;
+}
+
+.animation-open {
+    height: 40 !important;
+    margin-bottom: 10px;
+}
+
+.pink-background {
+    background-color: #EF4D68;
 }
 
 .sidebar-add-button {
-    width: 40%;
+    width: 135px;
     height: 100%;
-    background-color: #222;
+    background-color: #6B6B6B;
+    -webkit-border-radius: 2px;
     float: left;
-    background-color: orange;
-    color: white;
-    line-height: 50px;
-    text-align: center;
-    font-family: 'Open Sans', sans-serif;
 }
 
 .sidebar-add-button:hover {
-    background-color: green;
-}
-
-.sidebar-add-button ul {
-    display: none;
-    top: 74px;
-    left: 290px;
-    background-color: green;
-    position: absolute;
-    padding: 0;
-    list-style-type: none;
-}
-
-.sidebar-add-button:hover > ul {
-    display:list-item;
-}
-
-.sidebar-add-button ul li {
-    width: 140px;
-    float: none;
-    position: relative;
-    list-style: none; 
-    text-align: center;
-}
-
-.sidebar-add-button ul li:hover {
-    background-color: pink;
     cursor: pointer;
+    background-color: #EF4D68;
+}
+
+.margin-right-10 {
+    margin-right: 10px; 
+}
+
+#sidebar-search-button {
+    width: 50px;
+}
+
+#sidebar-add-button {
+    width: 220px;
+    margin-left: 10px;
 }
 
 #sidebar-search {
     width: 100%;
-    height: 40px;
     background-color: #444;
-    margin-bottom: 10px;
 }
 
 #sidebar-search-form input {
-    width: 200px;
-    height: 20px;
+    width: 210px;
+    height: 40px;
     padding: 10px 5px;
     float: left;    
     background-color: #444;

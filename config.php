@@ -1,10 +1,9 @@
 <?php
-include 'private_config.php';
 $_PROD_ = FALSE;
 $_IWP_ = FALSE;
 
 // DB Settings //
-$_DB_NAME_ = $_PRIVATE_DB_NAME_;
+$_DB_NAME_ = 'hci';
 $_DB_USER_ = $_PROD_ ? $_PRIVATE_DB_USER_ : 'root';
 $_DB_PASS_ = $_PROD_ ? $_PRIVATE_DB_PASS_ : 'root';
 $_DB_HOST_ = $_PROD_ ? $_PRIVATE_DB_HOST_ : 'localhost';
