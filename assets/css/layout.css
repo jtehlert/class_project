@@ -572,19 +572,18 @@ div #overlay-content {
     height: 30px;
     font-size: 15px;
     font-style: italic;
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 
 #clipping-form #clipping-subtitle {
+    margin-right: 10%;
+    margin-left: 10%;
     width: 80%;
     height: 60px;
     font-size: 15px;
     font-style: italic;
     margin-bottom: 10px;
-}
-
-#clipping-form #clipping-drag-container {
-    vertical-align: top;
 }
 
 #clipping-form #uploaded-file-text {
