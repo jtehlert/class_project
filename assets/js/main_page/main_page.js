@@ -2,7 +2,13 @@ $(document).ready(function() {
     displayNotifications();
     loadClippings();
     fileUploadFormHandler();
+    addCommentSubmitHandler();
 })
+
+var origSelectedShareRecipients = [];
+var origUnselectedShareRecipients = [];
+var selectedShareRecipients = [];
+var unselectedShareRecipients = [];
 
 function displayNotifications() {
     $.ajax({
@@ -21,25 +27,54 @@ function loadClippings() {
         url: window.location.origin + JSI_IWP_DIR  + '/api/rest/clipping.php?uid=' + JSIuid
     }).done(function(response) {
         var responseObject = JSON.parse(response);
+        var numResponses = 0;
+        var promises = [];
         for (var i in responseObject) {
-            $.ajax({
+            numResponses ++;
+            var promise = $.ajax({
                 url: window.location.origin + JSI_IWP_DIR  + '/api/markup/markup-clipping_sidebar_row.php?id=' + responseObject[i].ID + '&uid=' + JSIuid + '&name=' + responseObject[i].NAME + '&subtitle=' + responseObject[i].SUBTITLE
             }).done(function(markup) {
                 $('#sidebar-list').prepend(markup);
+
+                // Click the last clipping.
+                // TODO: Find a better way to do this.
+            });
+            promises.push(promise);
+        }
+        $.when.apply($, promises).done(function() {
+            clickClipping('clipping-' + responseObject[numResponses - 1].ID);
+        });
+    });
+}
+
+// Loads users for the share modal.
+function loadPrevSharedUsers(cid) {
+    $.ajax({
+        url: window.location.origin + JSI_IWP_DIR  + '/api/rest/get_previously_shared_users.php?cid=' + cid + '&uid=' + JSIuid
+    }).done(function(response) {
+        var responseObject = JSON.parse(response);
+        for (var i in responseObject) {
+            origSelectedShareRecipients.push(responseObject[i].ID);
+            selectedShareRecipients.push(responseObject[i].ID);
+            $.ajax({
+                url: window.location.origin + JSI_IWP_DIR  + '/api/markup/markup-share_user_row.php?id=' + responseObject[i].ID + '&fname=' + responseObject[i].FNAME + '&lname=' + responseObject[i].LNAME + '&shared=true'
+            }).done(function(markup) {
+                $('#user-share-list').prepend(markup);
             });
         }
     });
 }
 
-// Loads users for the share modal.
 function loadShareUsers(cid) {
     $.ajax({
         url: window.location.origin + JSI_IWP_DIR  + '/api/rest/get_share_users.php?cid=' + cid + '&uid=' + JSIuid
     }).done(function(response) {
         var responseObject = JSON.parse(response);
         for (var i in responseObject) {
+            origUnselectedShareRecipients.push(responseObject[i].ID);
+            unselectedShareRecipients.push(responseObject[i].ID);
             $.ajax({
-                url: window.location.origin + JSI_IWP_DIR  + '/api/markup/markup-share_user_row.php?id=' + responseObject[i].ID + '&fname=' + responseObject[i].FNAME + '&lname=' + responseObject[i].LNAME
+                url: window.location.origin + JSI_IWP_DIR  + '/api/markup/markup-share_user_row.php?id=' + responseObject[i].ID + '&fname=' + responseObject[i].FNAME + '&lname=' + responseObject[i].LNAME + '&shared=false'
             }).done(function(markup) {
                 $('#user-share-list').prepend(markup);
             });
@@ -84,6 +119,7 @@ function showShareOverlay() {
     var selectedClippingId = document.getElementsByClassName('selected')[0].id;
     id = selectedClippingId.substring(selectedClippingId.indexOf('-') + 1);
     loadShareUsers(id);
+    loadPrevSharedUsers(id);
 
     el = document.getElementById("share-overlay");
     el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
@@ -102,6 +138,16 @@ function hideShareOverlay() {
         paras[0].parentNode.removeChild(paras[0]);
     }
 
+    var paras = document.getElementsByClassName('user-previously-shared-list-link');
+
+    while(paras[0]) {
+        paras[0].parentNode.removeChild(paras[0]);
+    }
+
+    // Clear out the share array.
+    selectedShareRecipients = [];
+    unselectedShareRecipients = [];
+
     hideOverlayBackground();
 }
 
@@ -116,14 +162,27 @@ function hideOverlayBackground() {
 }
 
 // Onmouseup handler to copy text from clipping source to clipping result.
-function copyText() {
+function drag(ev) {
     if (window.getSelection) {
         text = window.getSelection().toString();
+        ev.dataTransfer.setData("text", text);
     }
-    document.getElementById("clipping-text").value = text;
+}
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    document.getElementById("clipping-text").value += data;
 }
 
 function clickClipping(id) {
+    // Determine if the clipping is shared with the user or not.
+    var shared = ($('#' + id + '> .shared').length == 0) ? false : true;
+
     // Deselect any previously selected clipping.
     var selectedClippings = document.getElementsByClassName('selected');
     for (var i = 0; i < selectedClippings.length; i++) {
@@ -148,38 +207,150 @@ function clickClipping(id) {
 
     document.getElementById('clipping-title').innerHTML = contents.NAME;
 
+    // Get the clippings comments.
+    loadClippingComments(id);
+
     if(contents.NAME.length > 0)
     {
         document.getElementById('info-button').innerHTML = 'Info';
-        document.getElementById('share-button').innerHTML = 'Share';
         document.getElementById('comment-button').innerHTML = 'Comment';
         document.getElementById('organize-button').innerHTML = 'Organize';
+        if (!shared) {
+            document.getElementById('share-button').innerHTML = 'Share';
+            document.getElementById('share-button').onclick = showShareOverlay;
+        } else {
+            document.getElementById('share-button').innerHTML = '';
+            document.getElementById('share-button').onclick = function() {
+                swal('Sorry, but you cannot share a clipping that was shared with you.');
+            }
+        }
     }
 }
 
-// Share the clipping with the user.
-function clickUser(uid) {
-    // Sanitize the uid.
-    uid = uid.substring(uid.indexOf('-') + 1);
+/**
+ * Load's a clipping's comments into the comment area.
+ *
+ * @param int cid
+ *  The clipping's id.
+ */
+function loadClippingComments(cid) {
 
-    // Get the info for the clipping.
-    var selectedClippingId = document.getElementsByClassName('selected')[0].id;
-    id = selectedClippingId.substring(selectedClippingId.indexOf('-') + 1);
-
-    // Share the clipping with the user.
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', window.location.origin + JSI_IWP_DIR  + "/api/rest/share_clipping.php?cid=" + id + "&uid=" + uid, true);
-    xhr.send();
-
-    // Remove all of the users who could be shared to.
-    var paras = document.getElementsByClassName('user-share-list-link');
+    // Clear out old comments.
+    var paras = document.getElementsByClassName('comment-row');
 
     while(paras[0]) {
         paras[0].parentNode.removeChild(paras[0]);
     }
 
+    // Load fresh comments.
+    $.ajax({
+        url: window.location.origin + JSI_IWP_DIR  + '/api/rest/comments/get_comments_by_clipping_id.php?cid=' + cid + '&name=true'
+    }).done(function(response) {
+        response = JSON.parse(response);
+        for (var i in response) {
+            $.ajax({
+                url: window.location.origin + JSI_IWP_DIR  + '/api/markup/markup-comment_row.php?fname=' + response[i].FNAME + '&lname=' + response[i].LNAME + '&content=' + response[i].CONTENT
+            }).done(function(markup) {
+                $('#comments-content').prepend(markup);
+            });
+        }
+    });
+}
+
+function addCommentSubmitHandler() {
+    $('#comment-form').submit(function(event) {
+        event.preventDefault();
+
+        // Get the info for the clipping.
+        var selectedClippingId = document.getElementsByClassName('selected')[0].id;
+        var id = selectedClippingId.substring(selectedClippingId.indexOf('-') + 1);
+
+        // Get the content of the comment.
+        var content = $('#comment-content').val();
+
+        // Create the comment.
+        $.ajax({
+            url: window.location.origin + JSI_IWP_DIR  + "/api/rest/comments/create_comment.php?cid=" + id + "&uid=" + JSIuid + "&content=" + content
+        }).done(function(response) {
+            loadClippingComments(id);
+            $('#comment-content').val("");
+        });
+    });
+}
+
+function clickUser(uid) {
+    var $clickedRow = $('#' + uid);
+    var uid = uid.substring(uid.indexOf('-') + 1);
+
+
+    if ($clickedRow.hasClass('user-previously-shared-list-link')) {
+        // Unselect.
+        $clickedRow.removeClass('user-previously-shared-list-link');
+        $clickedRow.addClass('user-share-list-link');
+        var $child = $clickedRow.children('.user-previously-shared-list-cell');
+        $child.removeClass('user-previously-shared-list-cell');
+        $child.addClass('user-share-list-cell')
+        selectedShareRecipients = $.grep(selectedShareRecipients, function(value) {
+            return value != uid;
+        });
+        unselectedShareRecipients.push(uid);
+    }
+    else {
+        // Select.
+        $clickedRow.addClass('user-previously-shared-list-link');
+        $clickedRow.removeClass('user-share-list-link');
+        var $child = $clickedRow.children('.user-share-list-cell');
+        $child.addClass('user-previously-shared-list-cell');
+        $child.removeClass('user-share-list-cell')
+        unselectedShareRecipients = $.grep(unselectedShareRecipients, function(value) {
+            return value != uid;
+        });
+        selectedShareRecipients.push(uid);
+    }
+}
+
+// Share the clipping with the user.
+function shareSubmit() {
+
+    // Get the info for the clipping.
+    var selectedClippingId = document.getElementsByClassName('selected')[0].id;
+    id = selectedClippingId.substring(selectedClippingId.indexOf('-') + 1);
+
+    // Share the clipping with the users who have been selected.
+    // Convert the uids array to JSON.
+    // Filter out those who have already been shared with.
+    selectedShareRecipients = selectedShareRecipients.filter(function(val) {
+        return origSelectedShareRecipients.indexOf(val) == -1;
+    });
+    var uidsJson = JSON.stringify(selectedShareRecipients);
+
+    // Share the clipping with the user.
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', window.location.origin + JSI_IWP_DIR  + "/api/rest/batch_share_clipping.php?cid=" + id + "&uids=" + uidsJson + "&current_uid=" + JSIuid, true);
+    xhr.send();
+
+    // Unshare the clipping with the users who have been selected.
+    // Convert the uids array to JSON.
+    // Filter out those who have already been shared with.
+    unselectedShareRecipients = unselectedShareRecipients.filter(function(val) {
+        return origUnselectedShareRecipients.indexOf(val) == -1;
+    });
+    var uidsJson = JSON.stringify(unselectedShareRecipients);
+
+    // Share the clipping with the user.
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', window.location.origin + JSI_IWP_DIR  + "/api/rest/batch_unshare_clipping.php?cid=" + id + "&uids=" + uidsJson + "&current_uid=" + JSIuid, true);
+    xhr.send();
+
+    // Clear out the share arrays.
+    selectedShareRecipients = [];
+    unselectedShareRecipients = [];
+
     hideShareOverlay();
-    swal("Clipping shared!");
+
+    // TODO: Fix bug where you can't un/re share without refreshing the page.
+    location.reload();
+    //swal("Clipping shared!");
 }
 
 function fileUploadFormHandler() {

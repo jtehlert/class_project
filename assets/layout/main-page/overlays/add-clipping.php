@@ -18,13 +18,13 @@
           </form>
           <form id="clipping-form" action="" enctype="multipart/form-data" method="POST" style="display: none">
             <input type="hidden" id="fid" value=""/>
-            <p>Clipping Name</p><br />
-            <input type="text" id="clipping-name" name="clipping-name" required /><br />
-            <p>Clipping Subtitle</p><br/>
-            <input type="text" id="clipping-subtitle" name="clipping-subtitle" required/><br />
-            <p>Highlight the text you would like to create a clipping from.</p><br />
-            <textarea id="uploaded-file-text" name="uploaded-file-text" onmouseup="copyText()" readonly></textarea><br />
-            <textarea id="clipping-text" name="clipping-text" ></textarea><br />
+            <p class="field-header"><strong>Highlight</strong>, then <strong>Drag</strong> the text you want to keep into the box on the right.</p><br />
+            <div id="clipping-drag-container">
+              <textarea id="uploaded-file-text" name="uploaded-file-text" ondragstart="drag(event)" draggable="true" resizable spellcheck="false"></textarea>
+              <textarea id="clipping-text" name="clipping-text" ondrop="drop(event)" ondragover="allowDrop(event)" required resizeable title="This is an error message" placeholder="Drag selected text here"></textarea><br />
+            </div>
+            <input type="text" id="clipping-name" name="clipping-name" placeholder="Clipping Name" required /><br />
+            <textarea type="text" id="clipping-subtitle" name="clipping-subtitle" placeholder="Clipping Description" required></textarea>
             <button type="submit" id="save-clipping">Save Clipping</button>
           </form>
         </div>

@@ -65,13 +65,23 @@ function saveClipping($userId, $file, $content, $name, $subtitle) {
   $sql = sqlSetup();
   $query = "INSERT INTO CLIPPINGS (CREATED, ACCESSED, UID, ORIGFILE, CONTENT, NAME, SUBTITLE)
             VALUES
-            ($time, $time, $userId, $file, '$content', '$name', '$subtitle')";
+            ($time, $time, $userId, $file, \"$content\", \"$name\", \"$subtitle\")";
   mysqli_query($sql, $query);
   $query = "SELECT LAST_INSERT_ID()";
   $result = mysqli_query($sql, $query) or die("A MySQL error has occurred.<br />Error: (" . mysqli_errno($sql) . ") " . mysqli_error($sql));
   $id = mysqli_fetch_row($result);
   $id = $id[0];
   return $id;
+}
+
+function unSaveClipping($userId, $file, $content, $name, $subtitle) {
+  $time = time();
+  require_once(dirname(__FILE__) . '/../helpers/database_helper.php');
+
+  $sql = sqlSetup();
+  $query = "DELETE FROM CLIPPINGS
+            WHERE UID=$userId AND ORIGFILE=$file AND NAME=\"$name\" AND  SUBTITLE=\"$subtitle\"";
+  mysqli_query($sql, $query);
 }
 
 /**
@@ -107,14 +117,51 @@ function getShareUsers($cid, $uid) {
   require_once(dirname(__FILE__) . '/../helpers/database_helper.php');
 
   $sql = sqlSetup();
-  $query = "SELECT MIN(u.ID) as ID, u.EMAIL, u.PASSWORD, u.FNAME, u.LNAME, u.NOTIFICATION FROM USERS as u
-            LEFT JOIN SHARED_CLIPPINGS as s ON u.ID=s.UID
-            WHERE ((s.ID IS NULL) OR (NOT s.ORIGCID=$cid)) AND NOT u.ID=$uid";
+  $query = "SELECT u.ID, u.EMAIL, u.PASSWORD, u.FNAME, u.LNAME, u.NOTIFICATION, s.ORIGCID FROM USERS as u
+            LEFT JOIN SHARED_CLIPPINGS as s ON u.ID=s.UID";
   $result = mysqli_query($sql, $query);
 
   $users = array();
+  $usersByUid = array();
+  $disqualified = array();
   while ($obj = mysqli_fetch_object($result)) {
     if (!($obj->ID == NULL)) {
+      if (($obj->ORIGCID == $cid) || ($obj->ID == $uid)) {
+        $disqualified[] = $obj->ID;
+      }
+      else {
+        if (!in_array($obj->ID, $usersByUid)) {
+          $users[] = $obj;
+          $usersByUid[] = $obj->ID;
+        }
+      }
+    }
+  }
+  if (!empty($users)) {
+    $users = array_filter($users, function($user) use ($disqualified) {
+      foreach ($disqualified as $id) {
+        if ($user->ID == $id) {
+          return FALSE;
+        }
+      }
+      return TRUE;
+    });
+    return $users;
+  }
+  return NULL;
+}
+
+function getPreviouslySharedUsers($cid) {
+  require_once(dirname(__FILE__) . '/../helpers/database_helper.php');
+
+  $sql = sqlSetup();
+  $query = "SELECT DISTINCT U.ID, U.EMAIL, U.PASSWORD, U.FNAME, U.LNAME, U.NOTIFICATION FROM USERS as U
+            JOIN SHARED_CLIPPINGS as S ON U.ID=S.UID
+            WHERE S.ORIGCID=$cid";
+  $result = mysqli_query($sql, $query);
+  $users = array();
+  while ($obj = mysqli_fetch_object($result)) {
+    if (!$obj->ID == NULL) {
       $users[] = $obj;
     }
   }
