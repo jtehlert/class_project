@@ -408,17 +408,53 @@ textarea {
 /* New comment row */
 #new-comment-row {
     margin-top: 10px;
-    width: 93%;
     text-align: center;
     background-color: #FFFFFF;
+    position: relative;
+    padding: 10px;
+    display: inline-block;
+    min-height: 80px;
+    width: 90%;
 }
 
-#new-comment-row:hover {
+/* Triangle */
+#new-comment-row:after {
+    position: absolute;
+    left: 100%;
+    bottom: 0%;
+    display: block;
+    width: 0;
+    height: 0;
+    border-bottom: 40px solid #FFFFFF;
+    border-right: 40px solid transparent;
+    content: "";
+}
+
+#add-comment-overlay {
+    visibility: hidden;
+}
+#comment-content {
+    margin-bottom: 10px;
+    width: 100%;
+    height: 120px;
+    font-size: 15px;
+    font-style: italic;
+}
+
+#comment-submit {
+    float: right;
+    position: relative;
+    border: 0;
+    padding: 0;
     cursor: pointer;
-}
-
-#new-comment-row > h4 {
-    color: #6B6B6B;
+    height: 35px;
+    font-size: 16px;
+    font-weight: 400;
+    width: 120px;
+    color: #fff;
+    text-transform: uppercase;
+    background: #d83c3c;
+    margin-top: 10px;
 }
 
 /* Area content */
@@ -744,37 +780,6 @@ div #overlay-content {
     background: #d83c3c;
     margin-top: 20px;
 }
-
-/* #Comment modal styles
-================================================== */
-
-#add-comment-overlay {
-    visibility: hidden;
-}
-#comment-content {
-    margin-bottom: 10px;
-    width: 100%;
-    height: 120px;
-    font-size: 15px;
-    font-style: italic;
-}
-
-#comment-submit {
-    position: relative;
-    border: 0;
-    padding: 0;
-    cursor: pointer;
-    height: 35px;
-    font-size: 16px;
-    font-weight: 400;
-    width: 120px;
-    color: #fff;
-    text-transform: uppercase;
-    background: #d83c3c;
-    margin-top: 20px;
-}
-
-
 
 /* #Form Styles
 ================================================== */

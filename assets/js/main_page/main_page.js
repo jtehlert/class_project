@@ -151,21 +151,6 @@ function hideShareOverlay() {
     hideOverlayBackground();
 }
 
-// Add Comment Modal controls. ///////////////////////////////////////////////////
-function showCommentOverlay() {
-    el = document.getElementById("add-comment-overlay");
-    el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
-
-    showOverlayBackground();
-}
-
-function hideCommentOverlay() {
-    el = document.getElementById("add-comment-overlay");
-    el.style.visibility = "hidden";
-
-    hideOverlayBackground();
-}
-
 function showOverlayBackground() {
     bg = document.getElementById("overlay-background");
     bg.style.display = (bg.style.display == "block") ? "none" : "block";
@@ -288,7 +273,7 @@ function addCommentSubmitHandler() {
             url: window.location.origin + JSI_IWP_DIR  + "/api/rest/comments/create_comment.php?cid=" + id + "&uid=" + JSIuid + "&content=" + content
         }).done(function(response) {
             loadClippingComments(id);
-            hideCommentOverlay();
+            $('#comment-content').val("");
         });
     });
 }
