@@ -353,6 +353,37 @@ function shareSubmit() {
     //swal("Clipping shared!");
 }
 
+function uploadIsReady() {
+    var fileSelect = document.getElementById('file-select');
+    var files = fileSelect.files;
+    var file = files[0];
+
+    if(file == null || file == undefined)
+    {
+        // Change button to being greyed out
+        alert("Don't change button color");
+        return false;
+    }
+
+    document.getElementById('upload-button').style.backgroundColor = '#EF4D68';
+
+    return true;
+}
+
+function addClippingIsReady() {
+    var clipping = document.getElementById('clipping-text');
+    var clippingName = document.getElementById('clipping-name');
+    var clippingDescription = document.getElementById('clipping-subtitle');
+
+    if(clipping.value == '' || clippingName.value == '' || clippingDescription.value == '')
+    {
+        document.getElementById('save-clipping').style.backgroundColor = '#6B6B6B';
+    } else 
+    {
+        document.getElementById('save-clipping').style.backgroundColor = '#EF4D68';
+    }
+}
+
 function fileUploadFormHandler() {
     // Handle file uploads.
     var fileUploadForm = document.getElementById('file-form');
@@ -371,6 +402,11 @@ function fileUploadFormHandler() {
         // Get the selected files from the input.
         var files = fileSelect.files;
         var file = files[0];
+
+        if(file == null || file == undefined)
+        {
+            alert("No file has been selected");
+        }
 
         // Create a new FormData object.
         var formData = new FormData();
