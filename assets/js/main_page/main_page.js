@@ -384,6 +384,18 @@ function addClippingIsReady() {
     }
 }
 
+function addCommentIsReady() {
+    var comment = document.getElementById('comment-content');
+
+    if(comment.value == '')
+    {
+        document.getElementById('comment-submit').style.backgroundColor = '#6B6B6B';
+    } else 
+    {
+        document.getElementById('comment-submit').style.backgroundColor = '#EF4D68';
+    }
+}
+
 function fileUploadFormHandler() {
     // Handle file uploads.
     var fileUploadForm = document.getElementById('file-form');
