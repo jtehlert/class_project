@@ -322,8 +322,8 @@ textarea {
 #info-button {
     background-color: #555;
     height: 100%;
-    width: 40px;
-    float: left;
+    width: 60px;
+    float: right;
     color: white;
 }
 
@@ -333,7 +333,7 @@ textarea {
 }
 
 #content-header #clipping-title {
-    width: 290px;
+    width: 350px;
     padding-left: 10px;
     height: 40px;
     line-height: 40px;
@@ -347,7 +347,7 @@ textarea {
     width: 100px;
     height: 40px;
     background-color: #555;
-    float: left;
+    float: right;
     color: white;
 }
 
@@ -356,24 +356,11 @@ textarea {
     cursor: pointer;
 }
 
-#comment-button {
-    width: 100px;
-    height: 40px;
-    background-color: #555;
-    float: left;
-    color: white;
-}
-
-#comment-button:hover {
-    background-color: #333;
-    cursor: pointer;
-}
-
 #organize-button {
     width: 100px;
     height: 40px;
     background-color: #555;
-    float: left;
+    float: right;
     color: white;
 }
 

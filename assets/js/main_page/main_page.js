@@ -212,11 +212,11 @@ function clickClipping(id) {
 
     if(contents.NAME.length > 0)
     {
-        document.getElementById('info-button').innerHTML = 'Info';
-        document.getElementById('comment-button').innerHTML = 'Comment';
-        document.getElementById('organize-button').innerHTML = 'Organize';
+        // document.getElementById('info-button').innerHTML = 'Info';
+        // document.getElementById('comment-button').innerHTML = 'Comment';
+        // document.getElementById('organize-button').innerHTML = 'Organize';
         if (!shared) {
-            document.getElementById('share-button').innerHTML = 'Share';
+            // document.getElementById('share-button').innerHTML = 'Share';
             document.getElementById('share-button').onclick = showShareOverlay;
         } else {
             document.getElementById('share-button').innerHTML = '';

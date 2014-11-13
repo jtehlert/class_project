@@ -7,20 +7,17 @@
   ?>
 
 	<div id="content-header">
-		<div id="info-button">
-			
-		</div>
 		<div id="clipping-title">
 			
 		</div>
+    <div id="info-button">
+      info
+    </div>
 		<div id="share-button" onclick="showShareOverlay()">
-			
-		</div>
-		<div id="comment-button">
-			
+			Share
 		</div>
 		<div id="organize-button">
-			
+			Organize
 		</div>
 	</div>
 
