@@ -3,7 +3,7 @@
     <div id="add-clipping-overlay" class="overlay">
       <div id="overlay-box">
         <div id="overlay-close-button" onclick="hideClippingOverlay()">X</div>
-        <h2 id="overlay-title">Upload Your Document</h2>
+        <h2 id="overlay-title">Upload A Document</h2>
         <div id="overlay-content">
           <form id="file-form" action="" enctype="multipart/form-data" method="POST">
             <div class="row">
