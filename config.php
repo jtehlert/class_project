@@ -20,4 +20,5 @@ $_DESCRIPTION_ = 'The note taking application for CS 4352 at UT Dallas';
 
 // IWP Specific Configs
 $_IWP_DIR_ = $_IWP_ ? '/wordpress' : '';
+
 ?>

@@ -26,7 +26,7 @@ textarea {
 
 #header {
 	height: 60px;
-	background-color: #7C7C7C;
+	background-color: #F7F7F7;
 	font-family: 'Open Sans', sans-serif;
     margin-top: 10px;
 }
@@ -66,11 +66,11 @@ textarea {
 }
 
 #logout a {
-    color: white;
+    color: #353535;
 }
 
 #logout a:hover {
-    color: #F9B84E;
+    color: #EF4D68;
 }
 
 #nav {
@@ -181,27 +181,27 @@ textarea {
     height: 40px;
     padding: 10px 5px;
     float: left;    
-    background-color: #444;
+    background-color: #F7F7F7;
     border: 0;
     font-family: 'Open Sans', sans-serif;
-    color: #fff;
+    color: #353535;
 }
 
 #sidebar-search-form input::-webkit-input-placeholder {
     font-family: 'Open Sans', sans-serif;
-    color: #999;
+    color: #6B6B6B;
     font-weight: normal;
 }
  
 #sidebar-search-form input:-moz-placeholder {
     font-family: 'Open Sans', sans-serif;
-    color: #999;
+    color: #6B6B6B;
     font-weight: normal;
 }
  
 #sidebar-search-form input:-ms-input-placeholder {
     font-family: 'Open Sans', sans-serif;
-    color: #999;
+    color: #6B6B6B;
     font-weight: normal;
 }   
 
@@ -216,28 +216,28 @@ textarea {
     width: 70px;
     color: #fff;
     text-transform: uppercase;
-    background: #d83c3c;
+    background: #6B6B6B;
 }
 
 #sidebar-search-form  button:hover{     
-    background: #e54040;
+    background: #EF4D68;
 }  
 
 #sidebar-title {
     width: 100%;
+    margin-top: 10px;
     height: 30px;
-    background-color: #333;
+    background-color: #F7F7F7;
     font-family: 'Open Sans', sans-serif;
     line-height: 30px;
-    color: white;
+    color: #353535;
     padding-left: 5px;
     box-sizing: border-box;
 }
 
 #sidebar-list {
     width: 100%;
-    height: 370px;
-    background-color: #444;
+    height: 400px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -245,38 +245,51 @@ textarea {
 .sidebar-list-cell {
     width: 100%;
     height: 60px;
-    background-color: #6B6B6B;
-    margin-bottom: 5px;
+    color: #353535;
+    background-color: white;
+    margin-bottom: 10px;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    padding: 5px;
+    /*padding: 10px;*/
     font-family: 'Open Sans', sans-serif;
     color: white;
     cursor: pointer;
+    border: solid 1px #6B6B6B;
+}
+
+.sidebar-list-cell-interior-padding {
+    padding: 5px;
+}
+
+.sidebar-list-cell-top-color {
+    background-color: #9AC5FF;
+    height: 6px;
 }
 
 .sidebar-list-cell .title {
     font-size: 20px;
     margin-bottom: 2px;
     line-height: 20px;
+    color: #353535;
 }
 
 .sidebar-list-cell .subtitle {
     line-height: 20px;
     font-size: 12px;
-    color: white;
+    color: #353535;
 }
 
-/*.sidebar-list-cell:hover {*/
-    /*background-color: #F7F7F7;*/
-/*}*/
+.sidebar-list-cell:hover {
+    background-color: #F7F7F7;
+}
 
 .sidebar-list-cell.shared {
     background-color: #6B6B6B;
 }
 
-.sidebar-list-link.selected > .sidebar-list-cell {
-    background-color: #C4C4C4;
+.sidebar-list-link.selected {
+    background-color: white;
+    color: #353535;
 }
 
 .clipping-shared-icon {
@@ -291,12 +304,12 @@ textarea {
 }
 
 #sidebar-list::-webkit-scrollbar {
-    width: 15px;
+    width: 0px;
     background-color: #252525;
 }
 
 #sidebar-list::-webkit-scrollbar-thumb {
-    width: 15px;
+    width: 0px;
     background-color: #555;
 }
 
@@ -309,34 +322,33 @@ textarea {
 }
 
 #content-header {
-    height: 40px;
+    height: 50px;
     width: 100%;
-    background-color: #555;
+    background-color: #F7F7F7;
     font-family: 'Open Sans', sans-serif;
-    color: white;
-    line-height: 40px;
+    color: #353535;
+    line-height: 50px;
     font-size: 14px;
     text-align: center;
 }
 
 #info-button {
-    background-color: #555;
     height: 100%;
     width: 60px;
     float: right;
-    color: white;
+    color: #353535;
 }
 
 #info-button:hover {
-    background-color: #333;
+    background-color: #EF4D68;
     cursor: pointer;
+    color: white;
 }
 
 #content-header #clipping-title {
     width: 350px;
     padding-left: 10px;
     height: 40px;
-    line-height: 40px;
     float: left;
     font-size: 20px;
     font-weight: 600;
@@ -345,38 +357,44 @@ textarea {
 
 #share-button {
     width: 100px;
-    height: 40px;
-    background-color: #555;
+    height: 50px;
     float: right;
-    color: white;
+    color: #353535;
 }
 
 #share-button:hover {
-    background-color: #333;
+    background-color: #EF4D68;
     cursor: pointer;
+    color: white;
 }
 
 #organize-button {
     width: 100px;
-    height: 40px;
-    background-color: #555;
+    height: 50px;
     float: right;
-    color: white;
+    color: #353535;
 }
 
 #organize-button:hover {
-    background-color: #333;
+    background-color: #EF4D68;
     cursor: pointer;
+    color: white;
 }
 
 
 #clipping-content {
     width: 100%;
     height: 300px;
-    margin-top: 20px;
+    margin-top: 10px;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;         /* Opera/IE 8+ */
+    background-color: #F7F7F7;
+    color: #353535;
+    border: none;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    padding: 10px;
 }
 
 /* #Comment Area Styles
@@ -385,12 +403,14 @@ textarea {
 /* Area */
 #comments-area {
     margin-top: 20px;
+}
+
+#comments-interior-padding {
     padding: 10px;
-    background-color: #F7F7F7;
 }
 
 /* Area Header */
-#comments-header > #comments-header-text {
+#comments-header {
     padding-right: 10px;
     display: inline;
     color: #6B6B6B;
@@ -404,16 +424,22 @@ textarea {
     background-color: #6B6B6B;
 }
 
+#comments-header-text {
+    color: #EF4D68;
+    font-size: 20px;
+    display: inline;
+}
+
 /* New comment row */
 #new-comment-row {
     margin-top: 10px;
     text-align: center;
-    background-color: #FFFFFF;
+    background-color: #F7F7F7;
     position: relative;
     padding: 10px;
     display: inline-block;
     min-height: 80px;
-    width: 90%;
+    width: 580px;
 }
 
 /* Triangle */
@@ -424,7 +450,7 @@ textarea {
     display: block;
     width: 0;
     height: 0;
-    border-bottom: 40px solid #FFFFFF;
+    border-bottom: 40px solid #F7F7F7;
     border-right: 40px solid transparent;
     content: "";
 }
@@ -438,6 +464,8 @@ textarea {
     height: 120px;
     font-size: 15px;
     font-style: italic;
+    border: 1px solid #C4C4C4;
+    padding: 5px;
 }
 
 #comment-submit {
@@ -463,8 +491,8 @@ textarea {
     margin-top: 10px;
     display: inline-block;
     min-height: 80px;
-    width: 90%;
-    background-color: #FFFFFF;
+    width: 580px;
+    background-color: #F7F7F7;
 }
 
 /* Triangle */
@@ -475,7 +503,7 @@ textarea {
     display: block;
     width: 0;
     height: 0;
-    border-bottom: 40px solid #FFFFFF;
+    border-bottom: 40px solid #F7F7F7;
     border-right: 40px solid transparent;
     content: "";
 }
@@ -545,7 +573,7 @@ textarea {
 }
 
 #overlay-close-button:hover {
-    color: #F9B84E;
+    color: #EF4D68;
     cursor: pointer;
 }
 

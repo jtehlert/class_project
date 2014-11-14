@@ -13,12 +13,15 @@ if (isset($_GET['id']) && isset($_GET['uid']) && isset($_GET['name']) && isset($
   $markup = '
 <a id="' . $id . '" onclick="clickClipping(this.id)" class="sidebar-list-link">
   <div  class="' . $cell_class . '">
-      <img class="clipping-shared-icon" src="http://' . $_SERVER['HTTP_HOST'] . $_IWP_DIR_ . '/assets/images/shared-note.png" />
-    <div class="title">
-      ' . $name . '
-    </div>
-    <div class="subtitle">
-      ' . $subtitle . '
+      <img class="clipping-shared-icon" src="http://' . $_SERVER['HTTP_HOST'] . '/assets/images/shared-note.png" />
+    <div class="sidebar-list-cell-top-color"></div>
+    <div class="sidebar-list-cell-interior-padding">
+      <div class="title">
+        ' . $name . '
+      </div>
+      <div class="subtitle">
+        ' . $subtitle . '
+      </div>
     </div>
   </div>
 </a>';

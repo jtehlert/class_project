@@ -32,7 +32,7 @@ require_once 'helpers/javascript_variable_injection.php';
   <div class="row sixteen columns">
     <div id="header">
       <div id="logo">
-        <image src="http://<?PHP echo ($_SERVER['HTTP_HOST'] . $_IWP_DIR_); ?>/assets/images/HCI-Clippr-logo_white.png" />
+        <image src="http://<?PHP echo ($_SERVER['HTTP_HOST'] . $_IWP_DIR_); ?>/assets/images/HCI-Clippr-logo_pink.png" />
       </div>
       <div id="logout">
         <a href="logout.php">Logout</a>
