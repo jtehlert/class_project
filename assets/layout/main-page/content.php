@@ -31,7 +31,7 @@
     </div>
     <div id="new-comment-row">
       <form id="comment-form" action="" enctype="multipart/form-data" method="POST">
-        <textarea type="text" id="comment-content" name="comment-content" placeholder="Enter your comment..." onkeyup="addCommentIsReady()" onchange="addCommentIsReady()" required></textarea>
+        <textarea type="text" id="comment-content" name="comment-content" placeholder="Enter a comment..." onkeyup="addCommentIsReady()" onchange="addCommentIsReady()" required></textarea>
         <button type="submit" id="comment-submit">Comment</button>
       </form>
     </div>
