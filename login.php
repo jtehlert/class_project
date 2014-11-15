@@ -54,13 +54,14 @@ require_once('config.php');
             <h4 class="modal-title" id="modalLabel">Create account</h4>
           </div>
           <div class="modal-body">
-            <form action="logic_login.php" method="post" class="form-horizontal" role="form">
+            <form id="create-account-form" action="logic_login.php" method="post" class="form-horizontal" role="form">
               <div class="form-group">
                 <div class="col-sm-12">
                   <div class="panel panel-default">
                     <div class="panel-body">
                       <input type="email" name="email" class="form-control" id="input_email_create" placeholder="Enter your email" required><br />
                       <input type="password" name="password" class="form-control" id="input_password_create" placeholder="Enter your password" required><br />
+                      <input type="password" name="password" class="form-control" id="input_password_confirm" placeholder="Confirm your password" required><br />
                       <input type="text" name="fname" class="form-control" id="inputFname" placeholder="Enter your first name" required><br />
                       <input type="text" name="lname" class="form-control" id="inputLname" placeholder="Enter your last name" required><br />
                       <button type="submit" class="btn btn-default col-sm-8 col-sm-offset-2" name="create">Create Account</button>
