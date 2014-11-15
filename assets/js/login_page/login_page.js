@@ -24,7 +24,6 @@ $(document).ready(function() {
         });
     });
 
-
     $('#create-account-form').submit(function(e) {
         var valid = e.target.checkValidity();
 
