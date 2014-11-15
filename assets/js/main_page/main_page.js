@@ -99,10 +99,13 @@ function hideClippingOverlay() {
 
 // Add Notebook Modal controls. ///////////////////////////////////////////////////
 function showNotebookOverlay() {
-    el = document.getElementById("add-notebook-overlay");
-    el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
 
-    showOverlayBackground();
+    swal("Feature not implemented", "We'll get that working right away!");
+    //TODO: Implement add notebook functionality.
+    //el = document.getElementById("add-notebook-overlay");
+    //el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+    //
+    //showOverlayBackground();
 }
 
 function hideNotebookOverlay() {
