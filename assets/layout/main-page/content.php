@@ -56,10 +56,6 @@ document.querySelector('#info-button').onclick = function(){
 	swal("Feature not implemented", "We'll get that working right away!")
 };
 
-document.querySelector('#comment-button').onclick = function(){
-	swal("Feature not implemented", "We'll get that working right away!")
-};
-
 document.querySelector('#organize-button').onclick = function(){
 	swal("Feature not implemented", "We'll get that working right away!")
 };
