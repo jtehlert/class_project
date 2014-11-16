@@ -41,11 +41,33 @@ function loadClippings() {
             });
             promises.push(promise);
         }
-        $.when.apply($, promises).done(function() {
-            clickClipping('clipping-' + responseObject[numResponses - 1].ID);
-        });
+        // If clippings were loaded...
+        if (promises.length > 0) {
+            clippingsPageLoad();
+            $.when.apply($, promises).done(function() {
+                clickClipping('clipping-' + responseObject[numResponses - 1].ID);
+            });
+        }
+        else {
+            noClippingsPageLoad();
+        }
     });
 }
+
+function clippingsPageLoad() {
+    $('#new-user-area').hide();
+    $('#content-header').show();
+    $('#clipping-content').show();
+    $('#comments-area').show();
+}
+
+function noClippingsPageLoad() {
+    $('#content-header').hide();
+    $('#clipping-content').hide();
+    $('#comments-area').hide();
+    $('#new-user-area').show();
+}
+
 
 // Loads users for the share modal.
 function loadPrevSharedUsers(cid) {
