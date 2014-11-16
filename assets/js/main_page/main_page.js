@@ -486,6 +486,9 @@ function fileUploadFormHandler() {
 
         // Reset the upload button.
         uploadButton.innerHTML = 'Upload';
+
+        // Change the modal header.
+        $('#add-clipping-overlay h2').text('Create A Clipping');
     }
 
     // Handle clipping submit.
@@ -520,5 +523,7 @@ function fileUploadFormHandler() {
 
         clippingForm.reset();
         fileUploadForm.reset();
+        // Change the modal header.
+        $('#add-clipping-overlay h2').text('Upload A Document');
     }
 }
