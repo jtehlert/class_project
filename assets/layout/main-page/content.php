@@ -43,7 +43,7 @@
 
   <div id="new-user-area">
     <h1>Welcome <?PHP echo $fname ?>!</h1>
-    <h3>Let's start by creating a clipping.</h3>
+    <h3>Let's start by creating a clipping. Watch how to create a clipping below.</h3>
     <video autoplay loop>
       <source src="http://<?php echo $_SERVER['HTTP_HOST'] . $_IWP_DIR_;?>/assets/video/vid_2.mp4" type="video/mp4"/>
     </video>
