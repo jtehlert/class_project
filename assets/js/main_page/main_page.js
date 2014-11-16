@@ -268,17 +268,32 @@ function loadClippingComments(cid) {
     }
 
     // Load fresh comments.
+    markupObj = {};
+    promiseArray = [];
     $.ajax({
         url: window.location.origin + JSI_IWP_DIR  + '/api/rest/comments/get_comments_by_clipping_id.php?cid=' + cid + '&name=true'
     }).done(function(response) {
         response = JSON.parse(response);
-        for (var i in response) {
-            $.ajax({
+        getMarkup = function(i, response, markupObj) {
+            return $.ajax({
                 url: window.location.origin + JSI_IWP_DIR  + '/api/markup/markup-comment_row.php?fname=' + response[i].FNAME + '&lname=' + response[i].LNAME + '&content=' + response[i].CONTENT
             }).done(function(markup) {
-                $('#comments-content').prepend(markup);
+                var key = response[i].ID;
+                markupObj[key] = markup;
             });
+        };
+        for (var i in response) {
+            promiseArray.push(getMarkup(i, response, markupObj));
         }
+        $.when.apply($, promiseArray).done(function(response) {
+            var keys = Object.keys(markupObj);
+            keys = keys.sort(function(a, b) {
+                return a - b;
+            })
+            for(var i in keys) {
+                $('#comments-content').prepend(markupObj[keys[i]]);
+            }
+        });
     });
 }
 
