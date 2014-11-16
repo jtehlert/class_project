@@ -37,16 +37,20 @@ if (isset($_POST['sign_in'])) {
   // Get any password associated with the entered email.
   $sql = mysqli_connect($_DB_HOST_, $_DB_USER_, $_DB_PASS_) or die("A MySQL error has occurred.<br />Error: (" . mysqli_errno($sql) . ") " . mysqli_error($sql));
   mysqli_select_db($sql, $_DB_NAME_) or die("A MySQL error has occurred.<br />Error: (" . mysqli_errno($sql) . ") " . mysqli_error($sql));
-  $query = 'SELECT ID, PASSWORD FROM ' . $_DB_USERS_TABLE_ . ' WHERE EMAIL=' . "'" . $email . "'";
+  $query = 'SELECT ID, PASSWORD, FNAME, LNAME FROM ' . $_DB_USERS_TABLE_ . ' WHERE EMAIL=' . "'" . $email . "'";
   $result = mysqli_query($sql, $query) or die("A MySQL error has occurred.<br />Error: (" . mysqli_errno($sql) . ") " . mysqli_error($sql));
   $row = mysqli_fetch_row($result);
   $id = $row[0];
   $pass = $row[1];
+  $fname = $row[2];
+  $lname = $row[3];
 
   if (isset($pass) && $password == $pass) {
 
     // Save the user in the session.
     $_SESSION['current_user'] = $id;
+    $_SESSION['fname'] = $fname;
+    $_SESSION['lname'] = $lname;
   } else {
 
     // Save the error.
@@ -91,6 +95,8 @@ elseif (isset($_POST['create'])) {
 
     // Save the user in the session.
     $_SESSION['current_user'] = $row[0];
+    $_SESSION['fname'] = $fname;
+    $_SESSION['lname'] = $lname;
   } else {
     $error = 'Sorry but that email address has already been used.';
   }
