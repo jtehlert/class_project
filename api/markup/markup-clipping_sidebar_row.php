@@ -1,6 +1,7 @@
 <?php
 
 require_once(dirname(__FILE__) . '/../shared_clipping.php');
+require_once(dirname(__FILE__) . '/../../config.php');
 if (isset($_GET['id']) && isset($_GET['uid']) && isset($_GET['name']) && isset($_GET['subtitle'])) {
 
   $id = 'clipping-' . $_GET['id'];
@@ -13,7 +14,7 @@ if (isset($_GET['id']) && isset($_GET['uid']) && isset($_GET['name']) && isset($
   $markup = '
 <a id="' . $id . '" onclick="clickClipping(this.id)" class="sidebar-list-link">
   <div  class="' . $cell_class . '">
-      <img class="clipping-shared-icon" src="http://' . $_SERVER['HTTP_HOST'] . '/assets/images/shared-note.png" />
+      <img class="clipping-shared-icon" src="http://' . $_SERVER['HTTP_HOST'] . $_IWP_DIR_ . '/assets/images/shared-note.png" />
     <div class="sidebar-list-cell-top-color"></div>
     <div class="sidebar-list-cell-interior-padding">
       <div class="title">
