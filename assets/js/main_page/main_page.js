@@ -241,7 +241,7 @@ function clickClipping(id) {
         // document.getElementById('comment-button').innerHTML = 'Comment';
         // document.getElementById('organize-button').innerHTML = 'Organize';
         if (!shared) {
-            // document.getElementById('share-button').innerHTML = 'Share';
+            document.getElementById('share-button').innerHTML = 'Share';
             document.getElementById('share-button').onclick = showShareOverlay;
         } else {
             document.getElementById('share-button').innerHTML = '';
