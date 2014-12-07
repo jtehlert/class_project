@@ -22,8 +22,8 @@
 		</div>
 	</div>
 
-  <textarea id="clipping-content">
-  </textarea>
+  <div id="clipping-content">
+  </div>
 
   <div id="comments-area">
     <div id="comments-header">
